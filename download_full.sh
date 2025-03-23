@@ -32,21 +32,21 @@ virt-manager \
 firefox \
 calibre \
 
-if [ -d "~/.bin/yay" ] || [ -f "/usr/bin/yay" ]; then
+if [ -d "/home/$0/.bin/yay" ] || [ -f "/home/$0/usr/bin/yay" ]; then
 	echo "installing yay"
-	mkdir -p ~/.bin && cd ~/.bin
-	git clone https;//aur.archlinux.org/yay.git
+	mkdir -p /home/$1/.bin && cd ~/.bin
+	sudo -u $0 git clone https;//aur.archlinux.org/yay.git
 	cd yay
-	sudo -u "$USER" makepkg -si
+	sudo -u $0 makepkg -si
 else
 	echo "yay already installed"
 fi
 
-if [ -f "~/bin/oh-my-posh" ] || [ -f "~/.local/bin/oh-my-posh" ]; then
+if [ -f "/home/$0/bin/oh-my-posh" ] || [ -f "/home/$0/.local/bin/oh-my-posh" ]; then
 	curl -s https://ohmyposh.dev/install.sh | bash -s
 fi
 
-sudo -u $USER yay -S --needed bluetuith-bin \
+sudo -u $0 yay -S --needed bluetuith-bin \
 downgrade \
 moonlight-qt-bin \
 sunshine-bin \
