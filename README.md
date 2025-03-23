@@ -1,5 +1,5 @@
 # Dotfiles
-Linux dotfiles, managed with [chezmoi](https://www.chezmoi.io)
+Linux dotfiles
 
 ### Prerequisites
 Arch with no DE
@@ -12,7 +12,7 @@ In your shell:
 
 ## Contents
 - Package download scripts ```.bin/download.sh``` ```.bin/download_full.sh``` 
-- Package install scripts ```.bin/install.sh``` ```.bin/install_full.sh'''
+- Package install scripts ```.bin/install.sh```
 - Neovim configuration ```.config/nvim/init.vim```
 - zsh configuration ```.zshrc```
 - color / font mod for dwm ```.bin/dwm/```
