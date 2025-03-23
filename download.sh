@@ -28,7 +28,7 @@ fzf \
 cronie \
 timeshift \
 
-if [ -d "~/.bin/yay" || -f "/usr/bin/yay" ]; then
+if [ -d "~/.bin/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "installing yay"
 	mkdir -p ~/.bin && cd ~/.bin
 	git clone https;//aur.archlinux.org/yay.git
@@ -38,7 +38,7 @@ else
 	echo "yay already installed"
 fi
 
-if [ -f "~/bin/oh-my-posh" || -f "~/.local/bin/oh-my-posh" ]; then
+if [ -f "~/bin/oh-my-posh" ] || [ -f "~/.local/bin/oh-my-posh" ]; then
 	curl -s https://ohmyposh.dev/install.sh | bash -s
 fi
 
