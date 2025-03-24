@@ -125,56 +125,56 @@ fi
 if [ -f $h/.config/nvim/init.vim ] || [ -f $h/.config/nvim/init.lua ]; then
 	echo "[WARN]: init.vim/init.lua already exists, skipping"
 else
-	mkdir -p $h/.config/nvim/
-	cp $(pwd)/init.vim $h/.config/nvim/init.vim
+	sudo -u $1 mkdir -p $h/.config/nvim/
+	sudo -u $1 cp $(pwd)/init.vim $h/.config/nvim/init.vim
 	echo "[DONE]: init.vim copied"
 fi
 
 if [ -f $h/.config/picom/shaders/grayscale.glsl ]; then
 	echo "[WARN]: Grayscale shader already exists, skipping"
 else
-	mkdir -p $h/.config/picom/shaders/
-	cp $(pwd)/grayscale.glsl $h/.config/picom/shaders/grayscale.glsl
+	sudo -u $1 mkdir -p $h/.config/picom/shaders/
+	sudo -u $1 cp $(pwd)/grayscale.glsl $h/.config/picom/shaders/grayscale.glsl
 	echo "[DONE]: Grayscale picom shader copied"
 fi
 
 if [ -d $h/Pictures/Wallpapers ]; then
 	echo "[WARN]: Wallpapers folder already exists, skipping"
 else
-	mkdir -p $h/Pictures/
-	cp -r $(pwd)/Wallpapers $h/Pictures/Wallpapers
+	sudo -u $1 mkdir -p $h/Pictures/
+	sudo -u $1 cp -r $(pwd)/Wallpapers $h/Pictures/Wallpapers
 	echo "[DONE]: Wallpapers folder copied"
 fi
 
 if [ -f $h/.xinitrc ]; then
 	echo "[WARN]: $h/.xinitrc already exists, backing up original to $h/.xinitrcbu"
-	cp $h/.xinitrc $h/.xinitrcbu
-	cp $(pwd)/.xinitrc $h/.xinitrc
+	sudo -u $1 cp $h/.xinitrc $h/.xinitrcbu
+	sudo -u $1 cp $(pwd)/.xinitrc $h/.xinitrc
 else
-	cp $(pwd)/.xinitrc $h/.xinitrc
+	sudo -u $1 cp $(pwd)/.xinitrc $h/.xinitrc
 	echo "[DONE]: $h/.xinitrc copied" 
 fi
 
 if [ -f $h/.zshrc ]; then
 	echo "[WARN]: $h/.zshrc already exists, backing up original to $h/.zshrcbu"
-	cp $h/.zshrc $h/.zshrcbu
-	cp $(pwd)/.zshrc $h/.zshrc
+	sudo -u $1 cp $h/.zshrc $h/.zshrcbu
+	sudo -u $1 cp $(pwd)/.zshrc $h/.zshrc
 else
-	cp $(pwd)/.zshrc $h/.zshrc
+	sudo -u $1 cp $(pwd)/.zshrc $h/.zshrc
 	echo "[DONE]: $h/.zshrc copied"
 fi
 
 if [ -f $h/.Xresources ]; then
 	echo "[WARN]: $h/.Xresources already exists, backing up original to $h/.Xresourcesbu"
-	cp $h/.Xresources $h/.Xresourcesbu
-	cp $(pwd)/.Xresources $h/.Xresources
+	sudo -u $1 cp $h/.Xresources $h/.Xresourcesbu
+	sudo -u $1 cp $(pwd)/.Xresources $h/.Xresources
 else
-	cp $(pwd)/.Xresources $h/.Xresources
+	sudo -u $1 cp $(pwd)/.Xresources $h/.Xresources
 	echo "[DONE]: $h/.Xresources copied"
 fi
 
 if [ -d $h/dotfiles ]; then
-	mv $h/dotfiles $h/.dotfiles
+	sudo -u $1 mv $h/dotfiles $h/.dotfiles
 	echo "[DONE]: Dotfiles directory is now hidden ($h/.dotfiles)"
 fi
 
