@@ -61,7 +61,7 @@ qemu-full \
 virt-manager \
 raylib \
 syncthing \
-
+ttf-liberation-mono-nerd \
 
 
 if [ -d "/home/$1/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
