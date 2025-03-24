@@ -127,6 +127,8 @@ if [ -f $h/.config/nvim/init.vim ] || [ -f $h/.config/nvim/init.lua ]; then
 else
 	sudo -u $1 mkdir -p $h/.config/nvim/
 	sudo -u $1 cp $(pwd)/init.vim $h/.config/nvim/init.vim
+	sudo -u $1 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	echo "[DONE]: init.vim copied"
 fi
 
