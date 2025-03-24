@@ -100,47 +100,23 @@ else
 fi
 }
 
-copljiofeayfile() {
+copyfile() {
 if [ -f $h/$user ]; then
-	echo "[WARN]: $h/$1 already exists, creating backup at $h/$1~" >> log
-	sudo -u $user cp --backup $(pwd)/home/$1 $h/$1
+	echo "[WARN]: $h/$user already exists, creating backup at $h/$user~" >> log
+	sudo -u $user cp --backup $(pwd)/home/$user $h/user$
 else
-	sudo -u $user cp --backup $(pwd)/home/$1 $h/$1
+	sudo -u $user cp $(pwd)/home/$user $h/user$
 	echo "[DONE]: $h/$user copied" >> log
 fi
 }
 
-copyfile() {
-# $1 = /home/.dotfiles/[srcdir]
-# $2 = [destdir]
-# $3 = [file]
-if [ -f $2$3 ]; then
-	echo "[WARN]: $3 already exists, creating backup at $3~" >> log
-	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
-else
-	sudo -u $user mkdir -p $2
-	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
-	echo "[DONE]: $h/$user copied" >> log
-fi
-}
 install dwm
 install st
 install dmenu
 
-copyfile home/ $h/ .xinitrc
-copyfile home/ $h/ .zshrc
-copyfile home/ $h/ .Xresources
-copyfile vim/ $h/.config/nvim/ init.vim
-copyfile picom/ $h/.config/picom/ picom.conf
-copyfile picom/ $h/.config/picom/shaders/ grayscale.glsl
-copyfile nvim/ $h/.config/nvim/ init.vim
-
-sudo chmod a+rw $h/.config/picom/picom.conf
-
-#vim-plug
-sudo -u $user sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
+copyfile .xinitrc
+copyfile .zshrc
+copyfile .Xresources
 
 sh=$(getent passwd $user | cut -d: -f7)
 if [ $sh == /usr/bin/zsh ]; then
@@ -148,6 +124,33 @@ if [ $sh == /usr/bin/zsh ]; then
 else
 	chsh -s /usr/bin/zsh user$
 	echo "[DONE]: Current shell is zsh" >> log
+fi
+
+if [ -f $h/.config/nvim/init.vim ] || [ -f $h/.config/nvim/init.lua ]; then
+	echo "[WARN]: init.vim/init.lua already exists, skipping" >> log
+else
+	sudo -u $user mkdir -p $h/.config/nvim/
+	sudo -u $user cp $(pwd)/nvim/init.vim $h/.config/nvim/init.vim
+	sudo -u $user sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	echo "[DONE]: init.vim copied" >> log
+fi
+
+if [ -f $h/.config/picom/shaders/grayscale.glsl ]; then
+	echo "[WARN]: Grayscale shader already exists, skipping" >> log
+else
+	sudo -u $user mkdir -p $h/.config/picom/shaders/
+	sudo -u $user cp $(pwd)/picom/grayscale.glsl $h/.config/picom/shaders/grayscale.glsl
+	echo "[DONE]: Grayscale picom shader copied" >> log
+fi
+
+if [ -f $h/.config/picom/picom.conf ]; then
+	echo "[WARN]: Picom configuration file already exists, skipping" >> log
+else
+	sudo -u $user mkdir -p $h/.config/picom/
+	sudo cp $(pwd)/picom/picom.conf $h/.config/picom/picom.conf
+	sudo chmod a+rw $h/.config/picom/picom.conf
+	echo "[DONE]: Picom configuration file copied" >> log
 fi
 
 if [ -d $h/Pictures/Wallpapers ]; then

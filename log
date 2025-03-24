@@ -1,0 +1,22 @@
+Installing to: /home/test
+[WARN]: yay already installed, skipping
+[WARN]: Performing downgrade on bluetooth library for bluetooth controller support
+[WARN]: dwm already installed, skipping
+[WARN]: st already installed, skipping
+[WARN]: dmenu already installed, skipping
+[WARN]: /home/test/.xinitrc already exists, creating backup at /home/test/.xinitrc~
+[WARN]: /home/test/.zshrc already exists, creating backup at /home/test/.zshrc~
+[WARN]: /home/test/.Xresources already exists, creating backup at /home/test/.Xresources~
+[WARN]: zsh is current shell, skipping
+[WARN]: init.vim/init.lua already exists, skipping
+[WARN]: Grayscale shader already exists, skipping
+[WARN]: Picom configuration file already exists, skipping
+[WARN]: Wallpapers folder already exists, skipping
+[WARN]: yazi folder exists, existing configs will be backed up
+### FINISHED ###
+### Run systemctl --user enable --now pipewire-pulse to fix pulsemixer ###
+Installing to: /home/test
+[WARN]: yay already installed, skipping
+[WARN]: Performing downgrade on bluetooth library for bluetooth controller support
+Installing to: /home/test
+[WARN]: yay already installed, skipping
