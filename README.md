@@ -33,6 +33,7 @@ $ ./install.sh
 - Startx ```~/.xinitrc```
 - Bibata cursor ```~/.Xresources```
 - Program reference ```~/.dotfiles/programs```
+- Wallpapers folder ```~/Pictures/Wallpapers```
 
 ## Packages downloaded
 - neovim  

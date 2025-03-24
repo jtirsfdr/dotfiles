@@ -127,9 +127,15 @@ if [ -f $h/.config/picom/shaders ]; then
 else
 	mkdir -p $h/.config/picom/shaders/
 	cp $(pwd)/grayscale.glsl $h/.config/picom/shaders/grayscale.glsl
-	echo "[DONE]: Grayscale picom shader installed"
+	echo "[DONE]: Grayscale picom shader copied"
 fi
 
+if [ -d $h/Pictures/Wallpapers ]; then
+	echo "[WARN]: Wallpapers folder already exists, skipping"
+else
+	mkdir -p $h/Pictures/
+	cp $(pwd)/Wallpapers $h/Pictures/Wallpapers
+	echo "[DONE]: Wallpapers folder copied"
 if [ -f $h/.xinitrc ]; then
 	echo "[WARN]: $h/.xinitrc already exists, backing up original to $h/.xinitrcbu"
 	cp $h/.xinitrc $h/.xinitrcbu
