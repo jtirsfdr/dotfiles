@@ -113,7 +113,7 @@ $ ./install.sh
 - Installs packages / dwm / st-flexipatch / dmenu
 - Adds grayscale shader for picom to config folder
 - Sets default shell to zsh 
-- Enable tlp & cronie, and pipewire
+- Enable tlp, cronie, and pipewire
 - Downgrade bluez to oldest version for bluetooth controller support
 - Copies ```.xinitrc```, ```.zshrc```, and ```.Xresources``` to home folder
 - Hides dotfiles folder ```~/.dotfiles```
