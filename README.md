@@ -3,36 +3,38 @@
 ## Install
 Currently only available for distros using pacman
 
-Clone the repo:
-```$ git clone https://github.com/jtirsfdr/dotfiles```
-
 In your shell:
-```$ ./install.sh```
+
+```
+$ git clone https://github.com/jtirsfdr/dotfiles
+$ cd dotfiles
+$ ./install.sh
+```
 
 ## Usage
-- After install, relogin to change shells
+- After install, relogin to update shell to zsh
 
 - Start dwm with ```startx```
 
 - Alt+P to open ```dmenu``` (package launcher)
 
-- Further help is available at the DWM tutorial
+- Further help is available at the [dwm tutorial](https://dwm.suckless.org/tutorial/)
 
 - List of programs and usage in ```~/.dotfiles/programs```
 
 ## Contents
-- Package install script ```.bin/install.sh```
-- Neovim configuration ```.config/nvim/init.vim```
-- zsh configuration ```.zshrc```
-- color / font mod for dwm ```.bin/dwm/```
-- time / battery statusbar ```.statusbar```
-- st-flexipatch  ```.bin/st-flexipatch/```
+- Package install script ```~/.dotfiles/install.sh```
+- Neovim configuration ```~/.config/nvim/init.vim```
+- zsh configuration ```~/.zshrc```
+- color / font mod for dwm ```~/.dotfiles/dwm/```
+- time / battery statusbar ```~/.dotfiles/.statusbar```
+- st-flexipatch  ```~/.dotfiles/st-flexipatch/```
 - Grayscale shader for picom ```.config/picom/shaders/grayscale.glsl```
-- Startx ```.xinitrc```
-- Bibata cursor ```.Xresources```
-- Program reference ```.bin/programs```
+- Startx ```~/.xinitrc```
+- Bibata cursor ```~/.Xresources```
+- Program reference ```~/.dotfiles/programs```
 
-### download.sh packages
+## Packages downloaded
 - neovim  
 - picom  
 - git 
@@ -95,7 +97,7 @@ In your shell:
 - syncthing 
 - oh my posh (pure theme)
 - bibata cursor
- nitrogen
+- nitrogen
 - qemu
 - virt-manager
 - firefox
