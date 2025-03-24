@@ -1,8 +1,0 @@
-ya pack -a yazi-rs/plugins:toggle-pane
-ya pack -a yazi-rs/plugins:git
-ya pack -a yazi-rs/plugins:full-border
-ya pack -a dangooddd/kanagawa
-https://github.com/yazi-rs/plugins/tree/main/toggle-pane.yazi
-https://github.com/yazi-rs/plugins/tree/main/git.yazi
-https://github.com/yazi-rs/plugins/tree/main/full-border.yazi
-https://github.com/dangooddd/kanagawa.yazi?tab=readme-ov-file
