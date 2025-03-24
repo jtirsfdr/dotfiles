@@ -1,9 +1,8 @@
 # Dotfiles
 
-### Prerequisites
-Arch-based distro
-
 ## Install
+Currently only available for distros using pacman
+
 Clone the repo:
 ```$ git clone https://github.com/jtirsfdr/dotfiles```
 
@@ -13,13 +12,13 @@ In your shell:
 ## Usage
 - After install, relogin to change shells
 
-- Start DWM with ```startx```
+- Start dwm with ```startx```
 
 - Alt+P to open ```dmenu``` (package launcher)
 
--Further help is available at the DWM tutorial
+- Further help is available at the DWM tutorial
 
--List of programs and usage in ```~/.dotfiles/programs```
+- List of programs and usage in ```~/.dotfiles/programs```
 
 ## Contents
 - Package download scripts ```.bin/download.sh``` ```.bin/download_full.sh``` 
