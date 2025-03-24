@@ -122,6 +122,14 @@ else
 	echo "[DONE]: Current shell is zsh"
 fi
 
+if [ -f $h/.config/nvim/init.vim ] || [ -f $h/.config/nvim/init.lua ]; then
+	echo "[WARN]: init.vim/init.lua already exists, skipping"
+else
+	mkdir -p $h/.config/nvim/
+	cp $(pwd)/init.vim $h/.config/nvim/init.vim
+	echo "[DONE]: init.vim copied"
+fi
+
 if [ -f $h/.config/picom/shaders ]; then
 	echo "[WARN]: Grayscale shader already exists, skipping"
 else
@@ -136,6 +144,8 @@ else
 	mkdir -p $h/Pictures/
 	cp $(pwd)/Wallpapers $h/Pictures/Wallpapers
 	echo "[DONE]: Wallpapers folder copied"
+fi
+
 if [ -f $h/.xinitrc ]; then
 	echo "[WARN]: $h/.xinitrc already exists, backing up original to $h/.xinitrcbu"
 	cp $h/.xinitrc $h/.xinitrcbu

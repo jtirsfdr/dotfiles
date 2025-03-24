@@ -24,15 +24,15 @@ $ ./install.sh
 
 ## Contents
 - Package install script ```~/.dotfiles/install.sh```
-- Neovim configuration ```~/.config/nvim/init.vim```
-- zsh configuration ```~/.zshrc```
-- color / font mod for dwm ```~/.dotfiles/dwm/```
+- Program reference ```~/.dotfiles/programs```
 - time / battery statusbar ```~/.dotfiles/.statusbar```
-- st-flexipatch  ```~/.dotfiles/st-flexipatch/```
-- Grayscale shader for picom ```.config/picom/shaders/grayscale.glsl```
+- zsh configuration ```~/.zshrc```
 - Startx ```~/.xinitrc```
 - Bibata cursor ```~/.Xresources```
-- Program reference ```~/.dotfiles/programs```
+- Neovim configuration ```~/.config/nvim/init.vim```
+- Grayscale shader for picom ```.config/picom/shaders/grayscale.glsl```
+- color / font mod for dwm ```/usr/bin/dwm/```
+- st-flexipatch  ```/usr/bin/st-flexipatch/```
 - Wallpapers folder ```~/Pictures/Wallpapers```
 
 ## Packages downloaded
