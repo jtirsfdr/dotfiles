@@ -78,7 +78,8 @@ fi
 sudo -u $user yay -S --needed bluetuith \
 downgrade \
 oh-my-posh \
-gotop
+gotop \
+bibata-cursor-theme
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support" >> log
@@ -146,7 +147,7 @@ sh=$(getent passwd $user | cut -d: -f7)
 if [ $sh == /usr/bin/zsh ]; then
 	echo "[WARN]: zsh is current shell, skipping" >> log
 else
-	chsh -s /usr/bin/zsh user$
+	chsh -s /usr/bin/zsh $user
 	echo "[DONE]: Current shell is zsh" >> log
 fi
 

@@ -1,5 +1,5 @@
 #status bar script
-~/.dotfiles/.statusbar &
+~/.dotfiles/home/.statusbar &
 
 #init sleep after 2 minutes
 xautolock -time 2 -locker "systemctl suspend" -detectsleep &
