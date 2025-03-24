@@ -11,7 +11,7 @@ ncdu \
 zoxide \
 yazi \
 yt-dlp \
-thunar \
+nemo \
 redshift \
 zsh \
 acpi \
@@ -25,13 +25,44 @@ trash-cli \
 nsxiv \
 croc \
 openssh \
-quilt \
 git \
 fzf \
 cronie \
 timeshift \
 pipewire \
-pulsemixer
+pipewire-alsa \
+pipewire-pulse \
+wireplumber \
+pulsemixer \
+xautolock \
+go \
+odin \
+fuse \
+brightnessctl \
+keepassxc \
+kleopatra \
+torbrowser-launcher \
+ttf-terminus-nerd \
+noto-fonts \
+gimp \
+github-cli \
+gnome-themes-extra \
+godot \
+imagemagick \
+man-db \
+man-pages \
+neofetch \
+nitrogen \
+xournalpp \
+blender \
+ollama \
+openssh \
+qemu-full \
+virt-manager \
+raylib \
+syncthing \
+
+
 
 if [ -d "/home/$1/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping"
@@ -43,15 +74,9 @@ else
 	echo "[DONE]: yay installed"
 fi
 
-if [ -f "/home/$1/bin/oh-my-posh" ] || [ -f "/home/$1/.local/bin/oh-my-posh" ]; then
-	echo "[WARN]: oh-my-posh already installed, skipping"
-else
-	sudo -u $1 curl -s https://ohmyposh.dev/install.sh | bash -s
-	echo "[DONE]: oh-my-posh installed"
-fi
-
 sudo -u $1 yay -S --needed bluetuith-bin \
-downgrade 
+downgrade \
+oh-my-posh
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support"
@@ -61,6 +86,7 @@ xdg-user-dirs-update
 
 systemctl enable --now tlp
 systemctl enable --now cronie
+systemctl enable --now pipewire-pulse
 
 if [ -f /usr/local/bin/dwm ]; then
 	echo "[WARN]: dwm already installed, skipping"

@@ -1,0 +1,55 @@
+Program Reference Manual 
+
+celluloid / mpv        - Media Player
+librewolf / chromium   - Browser
+ncdu 		       - ncurses disk usage viewer (wiztree)
+(n)vim / nano          - text editor
+st / kitty / alacritty - terminal
+xautolock 	       - autosleep
+picom		       - compositor (transparency, etc.)
+redshift               - f.lux / red light filter
+yay                    - AUR helper
+pacman		       - Package manager
+zoxide (z)             - Improved cd 
+nnn (cli) / thunar     - File manager
+yt-dlp                 - Youtube Downloader
+foobar2000 / mpd       - Music Player
+acpi                   - Report battery %
+zsh		       - Zshell (Bash replacement)
+tmux		       - Terminal multiplexer
+Calibre / zathura      - PDF / epub / etc. viewer
+xsel / copy            - Clipboard manager
+xdg-user-dirs 	       - Standardized home directories
+tlp 		       - Auto power efficiency profile
+p7z / 7z / unzip       - (Un)archiver
+trash-cli	       - Trash utility (no rm -rf / :) )
+(n)sxiv / feh          - Image viewer
+Syncthing / croc       - File syncer / sender
+QEMU / virt-manager    - Virtual machine
+SSH		       - Secure shell (remote terminals)
+quilt                  - Patching helper
+nitrogen	       - Wallpaper manager
+moonlight / sunshine   - Remote streaming (parsec)
+gotop / htop / top     - Task manager
+GIMP		       - Image editor
+git 		       - Version control
+fsearch	/ fzf	       - Instant file search (everything)
+dwm		       - Dynamic Window Manager (desktop)
+cronie 		       - Time based event scheduler
+bluetuith	       - bluetooth controller
+borg/snapper/timeshift - Backup
+anki 		       - Flashcards
+
+---
+
+ls (-a)		       - List files / directories
+df (-h) 	       - Disk free
+cd (path)	       - Change directories
+man / (man-db/texinfo) - Program manuals
+cat                    - Concatenate stream to stdout
+sed                    - Text stream editor
+awk		       - Pattern scanning and processing language
+sudo		       - Superuser Do (Root privileges)
+echo		       - Echo / display to stdout
+less                   - Display contents of a file
+grep		       - Print lines that match patterns			
