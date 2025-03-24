@@ -7,7 +7,7 @@ Clone the repo:
 ```$ git clone https://github.com/jtirsfdr/dotfiles```
 
 In your shell:
-```$ ./install.sh
+```$ ./install.sh```
 
 ## Usage
 - After install, relogin to change shells
