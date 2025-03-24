@@ -80,13 +80,12 @@ oh-my-posh
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support"
-sudo downgrade bluez --oldest --ignore always
+sudo downgrade bluez --oldest --ignore always -- --needed
 
 xdg-user-dirs-update
 
 systemctl enable --now tlp
 systemctl enable --now cronie
-sudo -u $1 systemctl --user enable --now pipewire-pulse
 
 if [ -f /usr/local/bin/dwm ]; then
 	echo "[WARN]: dwm already installed, skipping"
@@ -115,7 +114,8 @@ else
 	echo "[DONE]: dmenu installed"
 fi
 
-if [ $SHELL="zsh" ]; then
+sh=$(getent passwd $1 | cut -d: -f7)
+if [ $sh == /usr/bin/zsh ]; then
 	echo "[WARN]: zsh is current shell, skipping"
 else
 	chsh -s /usr/bin/zsh $1
@@ -130,7 +130,7 @@ else
 	echo "[DONE]: init.vim copied"
 fi
 
-if [ -f $h/.config/picom/shaders ]; then
+if [ -f $h/.config/picom/shaders/grayscale.glsl ]; then
 	echo "[WARN]: Grayscale shader already exists, skipping"
 else
 	mkdir -p $h/.config/picom/shaders/
@@ -142,7 +142,7 @@ if [ -d $h/Pictures/Wallpapers ]; then
 	echo "[WARN]: Wallpapers folder already exists, skipping"
 else
 	mkdir -p $h/Pictures/
-	cp $(pwd)/Wallpapers $h/Pictures/Wallpapers
+	cp -r $(pwd)/Wallpapers $h/Pictures/Wallpapers
 	echo "[DONE]: Wallpapers folder copied"
 fi
 
@@ -178,3 +178,6 @@ if [ -d $h/dotfiles ]; then
 	echo "[DONE]: Dotfiles directory is now hidden ($h/.dotfiles)"
 fi
 
+
+echo "### FINISHED ###"
+echo "### Run systemctl --user enable --now pipewire-pulse to fix pulsemixer ###"
