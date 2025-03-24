@@ -1,8 +1,8 @@
 h="/home/$1"
 echo "Installing to: $h"
 
-pacman -Syu --needed neovim \ 
-picom \ 
+pacman -Syu --needed neovim \
+picom \
 git \
 xorg \
 base-devel \
@@ -74,7 +74,7 @@ else
 	echo "[DONE]: yay installed"
 fi
 
-sudo -u $1 yay -S --needed bluetuith-bin \
+sudo -u $1 yay -S --needed bluetuith \
 downgrade \
 oh-my-posh
 
@@ -86,7 +86,7 @@ xdg-user-dirs-update
 
 systemctl enable --now tlp
 systemctl enable --now cronie
-systemctl enable --now pipewire-pulse
+sudo -u $1 systemctl --user enable --now pipewire-pulse
 
 if [ -f /usr/local/bin/dwm ]; then
 	echo "[WARN]: dwm already installed, skipping"
