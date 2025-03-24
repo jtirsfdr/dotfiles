@@ -4,14 +4,14 @@ HISTSIZE=1000
 SAVEHIST=1000
 unsetopt beep
 bindkey -e
-zstyle :compinstall filename '/home/sfdr/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 autoload -Uz compinit
 compinit
 
 
 ## MISC
 # Path
-export PATH=/home/sfdr/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
+export PATH=~/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
 
 # Aliases
 alias xsleep='xautolock -locker "systemctl suspend" -detectsleep'
@@ -27,7 +27,7 @@ alias sudo="sudo "
 alias rm='echo "Use trash or \\\rm"'
 alias copy='xsel -b -i'
 alias gotop='gotop -c monokai'
-alias grayscale='picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &'
+alias grayscale='picom --backend glx --window-shader-fg ~/.config/picom/shaders/grayscale.glsl &'
 
 #environment variables
 export EDITOR=nvim
