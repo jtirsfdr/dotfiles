@@ -53,7 +53,7 @@ fi
 
 ## THEMES
 # oh my posh
-eval "$(oh-my-posh init zsh --config ~/.dotfiles/themes/probua.minimal.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.dotfiles/oh-my-posh/probua.minimal.omp.json)"
 
 # fallback
 autoload -Uz promptinit
