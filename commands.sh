@@ -143,7 +143,9 @@ fi
 if [ -f $h/.config/picom/picom.conf ]; then
 	echo "[WARN]: Picom configuration file already exists, skipping"
 else
-	sudo -u $1 cp $(pwd)/picom.conf $h/.config/picom/picom.conf
+	sudo -u $1 mkdir -p $h/.config/picom/
+	sudo cp $(pwd)/picom.conf $h/.config/picom/picom.conf
+	sudo chmod a+rw $h/.config/picom/picom.conf
 	echo "[DONE]: Picom configuration file copied"
 fi
 if [ -d $h/Pictures/Wallpapers ]; then
