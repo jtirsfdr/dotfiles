@@ -101,16 +101,6 @@ else
 fi
 }
 
-copljiofeayfile() {
-if [ -f $h/$user ]; then
-	echo "[WARN]: $h/$1 already exists, creating backup at $h/$1~" >> log
-	sudo -u $user cp --backup $(pwd)/home/$1 $h/$1
-else
-	sudo -u $user cp --backup $(pwd)/home/$1 $h/$1
-	echo "[DONE]: $h/$user copied" >> log
-fi
-}
-
 copyfile() {
 # $1 = /home/.dotfiles/[srcdir]
 # $2 = [destdir]
@@ -131,6 +121,7 @@ install dmenu
 copyfile home/ $h/ .xinitrc
 copyfile home/ $h/ .zshrc
 copyfile home/ $h/ .Xresources
+copyfile home/ $h/ .zprofile
 copyfile vim/ $h/.config/nvim/ init.vim
 copyfile picom/ $h/.config/picom/ picom.conf
 copyfile picom/ $h/.config/picom/shaders/ grayscale.glsl
