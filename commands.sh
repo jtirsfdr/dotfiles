@@ -76,7 +76,8 @@ fi
 
 sudo -u $1 yay -S --needed bluetuith \
 downgrade \
-oh-my-posh
+oh-my-posh \
+gotop
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support"
@@ -87,32 +88,34 @@ xdg-user-dirs-update
 systemctl enable --now tlp
 systemctl enable --now cronie
 
-if [ -f /usr/local/bin/dwm ]; then
-	echo "[WARN]: dwm already installed, skipping"
+install() {
+if [ -f /usr/local/bin/$1 ]; then
+	echo "[WARN]: $1 already installed, skipping"
 else
-	pushd $(pwd)/dwm
+	pushd $(pwd)/$1
 	make clean install
 	popd
-	echo "[DONE]: dwm installed"
+	echo "[DONE]: $1 installed"
 fi
+}
 
-if [ -f /usr/local/bin/st ]; then
-	echo "[WARN]: st already installed, skipping"
+copyfile() {
+if [ -f $h/$1 ]; then
+	echo "[WARN]: $h/$1 already exists, creating backup at $h/$1~"
+	sudo -u $1 cp --backup $(pwd)/.xinitrc $h/.xinitrc
 else
-	pushd $(pwd)/st-flexipatch
-	make clean install
-	popd
-	echo "[DONE]: st installed"
+	sudo -u $1 cp $(pwd)/.xinitrc $h/.xinitrc
+	echo "[DONE]: $h/$1 copied" 
 fi
+}
 
-if [ -f /usr/local/bin/dmenu ]; then
-	echo "[WARN]: dmenu already installed, skipping"
-else
-	pushd $(pwd)/dmenu
-	make clean install
-	popd
-	echo "[DONE]: dmenu installed"
-fi
+install dwm
+install st
+install dmenu
+
+copyfile .xinitrc
+copyfile .zshrc
+copyfile .Xresources
 
 sh=$(getent passwd $1 | cut -d: -f7)
 if [ $sh == /usr/bin/zsh ]; then
@@ -156,37 +159,20 @@ else
 	echo "[DONE]: Wallpapers folder copied"
 fi
 
-if [ -f $h/.xinitrc ]; then
-	echo "[WARN]: $h/.xinitrc already exists, backing up original to $h/.xinitrcbu"
-	sudo -u $1 cp $h/.xinitrc $h/.xinitrcbu
-	sudo -u $1 cp $(pwd)/.xinitrc $h/.xinitrc
-else
-	sudo -u $1 cp $(pwd)/.xinitrc $h/.xinitrc
-	echo "[DONE]: $h/.xinitrc copied" 
-fi
-
-if [ -f $h/.zshrc ]; then
-	echo "[WARN]: $h/.zshrc already exists, backing up original to $h/.zshrcbu"
-	sudo -u $1 cp $h/.zshrc $h/.zshrcbu
-	sudo -u $1 cp $(pwd)/.zshrc $h/.zshrc
-else
-	sudo -u $1 cp $(pwd)/.zshrc $h/.zshrc
-	echo "[DONE]: $h/.zshrc copied"
-fi
-
-if [ -f $h/.Xresources ]; then
-	echo "[WARN]: $h/.Xresources already exists, backing up original to $h/.Xresourcesbu"
-	sudo -u $1 cp $h/.Xresources $h/.Xresourcesbu
-	sudo -u $1 cp $(pwd)/.Xresources $h/.Xresources
-else
-	sudo -u $1 cp $(pwd)/.Xresources $h/.Xresources
-	echo "[DONE]: $h/.Xresources copied"
-fi
-
 if [ -d $h/dotfiles ]; then
 	sudo -u $1 mv $h/dotfiles $h/.dotfiles
 	echo "[DONE]: Dotfiles directory is now hidden ($h/.dotfiles)"
 fi
+
+#yazi
+sudo -u $1 ya pack -a yazi-rs/plugins:toggle-pane
+sudo -u $1 ya pack -a yazi-rs/plugins:git
+sudo -u $1 ya pack -a yazi-rs/plugins:full-border
+sudo -u $1 ya pack -a yazi-rs/plugins:smart-filter
+sudo -u $1 ya pack -a yazi-rs/plugins:smart-enter
+sudo -u $1 ya pack -a yazi-rs/plugins:jump-to-char
+sudo -u $1 ya pack -a dangooddd/kanagawa
+sudo -u $1 ya pack -a bennyyip/gruvbox-dark
 
 
 echo "### FINISHED ###"
