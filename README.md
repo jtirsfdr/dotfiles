@@ -1,4 +1,5 @@
 # Dotfiles
+(/preview.png?raw=true)
 
 ## Install
 Currently only available for Arch

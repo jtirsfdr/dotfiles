@@ -129,6 +129,7 @@ copyfile picom/ $h/.config/picom/ picom.conf
 copyfile picom/ $h/.config/picom/shaders/ grayscale.glsl
 copyfile nvim/ $h/.config/nvim/ init.vim
 
+#make picom.conf modifiable
 sudo chmod a+rw $h/.config/picom/picom.conf
 
 #vim-plug
@@ -144,10 +145,10 @@ else
 	echo "[DONE]: Current shell is zsh" >> log
 fi
 
+sudo -u $user mkdir -p $h/Pictures/Screenshots
 if [ -d $h/Pictures/Wallpapers ]; then
 	echo "[WARN]: Wallpapers folder already exists, skipping" >> log
 else
-	sudo -u $user mkdir -p $h/Pictures/
 	sudo -u $user cp -r $(pwd)/Wallpapers $h/Pictures/Wallpapers
 	echo "[DONE]: Wallpapers folder copied" >> log
 fi
