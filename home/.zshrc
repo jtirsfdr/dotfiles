@@ -28,10 +28,17 @@ alias rm='echo "Use trash or \\\rm"'
 alias copy='xsel -b -i'
 alias gotop='gotop -c monokai'
 alias grayscale='picom --backend glx --window-shader-fg ~/.config/picom/shaders/grayscale.glsl &'
+alias maimreg='ls "$SSDIR" -A | wc -l | read -r FC && maim -s | tee "$SSDIR/ss_$FC.png" | xclip -selection clipboard -t image/png'
+alias maimfs='ls "$SSDIR" -A | wc -l | read -r FC && maim "$SSDIR/ss_$FC"'
+alias maimmega='megatools ls --reload --names "/Root/Screenshots" | wc -l | read -r FC ; maim -s | tee "$SSDIR/ssm_$FC.png" ; megatools put "$SSDIR/ssm_$FC.png" --path "/Root/Screenshots/ssm_$FC.png" ; megatools export --reload "/Root/Screenshots/ssm_$FC.png" | xclip -selection clipboard'
+alias qr='maim -qs | zbarimg -q --raw - | xclip -selection clipboard -f'
+
 
 #environment variables
 export EDITOR=nvim
 export CROC_SECRET="superfooder"
+export GTK_THEME=Adwaita:dark
+export SSDIR="/home/$USER/Pictures/Screenshots"
 
 ## PROGRAMS 
 # zoxide

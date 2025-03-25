@@ -1,120 +1,148 @@
 # Dotfiles
 
 ## Install
-Currently only available for distros using pacman
+Currently only available for Arch
 
-In your shell:
+### In your shell:
 
 ```
 $ git clone https://github.com/jtirsfdr/dotfiles
 $ cd dotfiles
 $ ./install.sh
+$ systemctl --user enable --now pipewire-pulse
 ```
+### Relogin to switch to zsh
 
-## Usage
-- After install, relogin to update shell to zsh
+In Neovim:
 
-- Start dwm with ```startx```
+```:PlugInstall```
 
+### For Mega.nz screenshot uploads:
+
+In ```~/.megarc```
+
+```
+[Login]
+Username = [EMAIL]
+Password = [PASSWORD]
+```
+In your shell: ```$ maimmega```
+
+## Tips
 - Alt+P to open ```dmenu``` (package launcher)
-
-- Further help is available at the [dwm tutorial](https://dwm.suckless.org/tutorial/)
-
-- List of programs and usage in ```~/.dotfiles/programs```
+- A list of programs and usage is available in ```~/.dotfiles/programs```
+- Disable grayscale with ```$ pkill picom```
+- [dwm tutorial](https://dwm.suckless.org/tutorial/)
+- Review aliases in .zshrc for helpful commands
 
 ## Contents
-- Package install script ```~/.dotfiles/install.sh```
+- Package install script ```~/.dotfiles/install.sh``` ```~/.dotfiles/commands.sh```
 - Program reference ```~/.dotfiles/programs```
-- time / battery statusbar ```~/.dotfiles/.statusbar```
+- Time / battery statusbar ```~/.dotfiles/home/.statusbar```
 - zsh configuration ```~/.zshrc```
-- Startx ```~/.xinitrc```
+- dwm / X11 configuration ```~/.xinitrc```
+- Autostart on tty1 login ```~/.zprofile```
 - Bibata cursor ```~/.Xresources```
 - Neovim configuration ```~/.config/nvim/init.vim```
 - Grayscale shader for picom ```.config/picom/shaders/grayscale.glsl```
-- color / font mod for dwm ```/usr/bin/dwm/```
-- st-flexipatch  ```/usr/bin/st-flexipatch/```
+- Color / font mod for dwm ```/usr/bin/dwm/```
+- Patched st ```/usr/bin/st-flexipatch/```
 - Wallpapers folder ```~/Pictures/Wallpapers```
 
 ## Packages downloaded
-- neovim  
-- picom  
-- git 
-- xorg 
+### Review commands.sh for the most up to date list
+- 7zip 
+- acpi 
+- anki
 - base-devel 
+- bibata cursor
+- blender 
+- bluetuith
+- brightnessctl 
+- calibre
+- croc 
+- cronie 
+- firefox
+- fuse 
+- fzf 
+- gimp 
+- git 
+- git 
+- github-cli 
+- gnome-themes-extra 
+- go 
+- godot 
+- gotop
+- imagemagick 
+- keepassxc 
+- kleopatra 
+- maimmega
+- man-db 
+- man-pages 
+- megatools
+- moonlight
 - mpv 
 - ncdu 
-- zoxide 
-- yazi 
-- yt-dlp 
 - nemo 
-- redshift 
-- zsh 
-- acpi 
-- tmux 
-- zathura 
-- xsel 
-- xdg-user-dirs 
-- tlp 
-- 7zip 
-- trash-cli 
+- neofetch 
+- neovim  
+- nitrogen
+- nitrogen 
+- noto-fonts 
 - nsxiv 
-- croc 
+- odin 
+- oh my posh (probua minimal theme)
+- ollama 
 - openssh 
-- git 
-- fzf 
-- cronie 
-- timeshift 
+- openssh 
+- picom  
 - pipewire 
 - pipewire-alsa 
 - pipewire-pulse 
-- wireplumber 
 - pulsemixer 
-- xautolock 
-- go 
-- odin 
-- fuse 
-- brightnessctl 
-- keepassxc 
-- kleopatra 
-- torbrowser-launcher 
-- ttf-terminus-nerd 
-- noto-fonts 
-- gimp 
-- github-cli 
-- gnome-themes-extra 
-- godot 
-- imagemagick 
-- man-db 
-- man-pages 
-- neofetch 
-- nitrogen 
-- xournalpp 
-- blender 
-- ollama 
-- openssh 
-- qemu-full 
-- virt-manager 
-- raylib 
-- syncthing 
-- oh my posh (pure theme)
-- bibata cursor
-- nitrogen
 - qemu
-- virt-manager
-- firefox
-- calibre
-- moonlight
+- qemu-full 
+- raylib 
+- redshift 
 - sunshine
-- anki
+- syncthing 
+- timeshift 
+- tlp 
+- tmux 
+- torbrowser-launcher 
+- trash-cli 
+- ttf-terminus-nerd 
+- virt-manager
+- virt-manager 
+- wireplumber 
+- xautolock 
+- xdg-user-dirs 
+- xorg 
+- xournalpp
+- xsel 
 - yay
-- bluetuith
+- yazi 
+- yt-dlp 
+- zathura 
+- zbar
+- zoxide 
+- zsh 
 
 ### Install.sh
 - Wrapper for commands.sh
 - Installs packages / dwm / st-flexipatch / dmenu
 - Adds grayscale shader for picom to config folder
-- Sets default shell to zsh 
-- Enable tlp, cronie, and pipewire
+- Sets default shell to zsh
+- Enables autologin on tty1
+- Enable tlp and cronie
 - Downgrade bluez to oldest version for bluetooth controller support
-- Copies ```.xinitrc```, ```.zshrc```, and ```.Xresources``` to home folder
+- Configures neovim w/ vim-plug
+- Configures yazi
+- Copies ```.xinitrc```, ```.zshrc```, ```.zprofile``` and ```.Xresources``` to home folder
 - Hides dotfiles folder ```~/.dotfiles```
+
+### TODO
+- Allow destructive installs (no backups)
+- Disable log file flag
+- Program to convert aliases to binaries for dmenu
+ 
