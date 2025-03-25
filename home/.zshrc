@@ -4,14 +4,14 @@ HISTSIZE=1000
 SAVEHIST=1000
 unsetopt beep
 bindkey -e
-zstyle :compinstall filename '~/.zshrc'
+zstyle :compinstall filename '/home/sfdr/.zshrc'
 autoload -Uz compinit
 compinit
 
 
 ## MISC
 # Path
-export PATH=~/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
+export PATH=/home/sfdr/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
 
 # Aliases
 alias xsleep='xautolock -locker "systemctl suspend" -detectsleep'
@@ -27,18 +27,25 @@ alias sudo="sudo "
 alias rm='echo "Use trash or \\\rm"'
 alias copy='xsel -b -i'
 alias gotop='gotop -c monokai'
-alias grayscale='picom --backend glx --window-shader-fg ~/.config/picom/shaders/grayscale.glsl &'
+alias grayscale='picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &'
 alias maimreg='ls "$SSDIR" -A | wc -l | read -r FC && maim -s | tee "$SSDIR/ss_$FC.png" | xclip -selection clipboard -t image/png'
 alias maimfs='ls "$SSDIR" -A | wc -l | read -r FC && maim "$SSDIR/ss_$FC"'
 alias maimmega='megatools ls --reload --names "/Root/Screenshots" | wc -l | read -r FC ; maim -s | tee "$SSDIR/ssm_$FC.png" ; megatools put "$SSDIR/ssm_$FC.png" --path "/Root/Screenshots/ssm_$FC.png" ; megatools export --reload "/Root/Screenshots/ssm_$FC.png" | xclip -selection clipboard'
 alias qr='maim -qs | zbarimg -q --raw - | xclip -selection clipboard -f'
+alias rotleft='xrandr -o left'
+alias rotnormal='xrandr -o normal'
+alias rotright='xrandr -o right'
 
-
-#environment variables
+## ENVIRONMENT VARIABLES 
 export EDITOR=nvim
 export CROC_SECRET="superfooder"
-export GTK_THEME=Adwaita:dark
 export SSDIR="/home/$USER/Pictures/Screenshots"
+
+#dark mode
+export GTK_THEME=Adwaita:dark
+export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+export QT_STYLE_OVERRIDE=Adwaita-Dark
+
 
 ## PROGRAMS 
 # zoxide
@@ -60,10 +67,9 @@ fi
 
 ## THEMES
 # oh my posh
-eval "$(oh-my-posh init zsh --config ~/.dotfiles/oh-my-posh/probua.minimal.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.dotfiles/themes/probua.minimal.omp.json)"
 
 # fallback
 autoload -Uz promptinit
 promptinit
 prompt redhat
-
