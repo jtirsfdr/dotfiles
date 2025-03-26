@@ -180,5 +180,3 @@ fi
 
 echo "### FINISHED ###" >> log
 echo "### Run systemctl --user enable --now pipewire-pulse to fix pulsemixer ###" >> log
-trash-put log
-trash-put log_full

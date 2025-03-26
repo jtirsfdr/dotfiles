@@ -114,12 +114,12 @@ lua <<EOF
     capabilities = capabilities
   }
 
-  require'lspconfig'.gopls.setup{ "gopls" }
+--  require'lspconfig'.gopls.setup{ "gopls" }
 
-  require'lspconfig'.gdscript.setup{}
+--  require'lspconfig'.gdscript.setup{}
 
   -- Disable virtual_text since it's redundant due to lsp_lines.
-  require("lsp_lines").setup()
+  require("lsp_lines").setup({ enabled = false })
   vim.diagnostic.config({ virtual_text = false })
   vim.keymap.set(
   "",
