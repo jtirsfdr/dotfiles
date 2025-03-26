@@ -1,0 +1,5 @@
+#!/bin/bash
+while true; do
+	xsetroot -name " $(date +"%F %R" ) | arch "
+	sleep 10s
+done

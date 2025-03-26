@@ -6,9 +6,7 @@ map J 5j
 map K 5k
 
 call plug#begin()
-Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
-Plug 'mikavilpas/yazi.nvim'
-Plug 'folke/snacks.nvim'
+Plug 'ErichDonGubler/lsp_lines.nvim'
 Plug 'olimorris/persisted.nvim'
 Plug 'BurntSushi/ripgrep'
 Plug 'junegunn/vim-easy-align'
@@ -49,19 +47,10 @@ nnoremap <Space>bn <cmd>bnext<cr>
 nnoremap <Space>bp <cmd>bprev<cr>
 nnoremap <Space>lo <cmd>LspStart<cr>
 nnoremap <Space>la <cmp>LspStop<cr>
-
 lua <<EOF
   -- Set up nvim-cmp.
   local cmp = require'cmp'
   local cmptoggle = true
-
-  vim.keymap.set("n", "<Space>yo", function()
-  require("yazi").yazi()
-  end)
-
-  vim.keymap.set("n", "<Space>yt", function()
-  require("yazi").toggle()
-  end)
 
   require("persisted").setup {}
 
@@ -93,12 +82,27 @@ lua <<EOF
       { name = 'buffer' },
     })
   })
+
+  -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
+  -- Set configuration for specific filetype.
+  --[[ cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'git' },
+    }, {
+      { name = 'buffer' },
+    })
+ })
+ require("cmp_git").setup() ]]-- 
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = 'buffer' }
     }
   })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
@@ -109,6 +113,7 @@ lua <<EOF
     matching = { disallow_symbol_nonprefix_matching = false }
   })
 
+  -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
   require('lspconfig').clangd.setup {
     capabilities = capabilities
@@ -116,10 +121,8 @@ lua <<EOF
 
   require'lspconfig'.gopls.setup{ "gopls" }
 
-  require'lspconfig'.gdscript.setup{}
-
-  -- Disable virtual_text since it's redundant due to lsp_lines.
   require("lsp_lines").setup()
+  -- Disable virtual_text since it's redundant due to lsp_lines.
   vim.diagnostic.config({ virtual_text = false })
   vim.keymap.set(
   "",

@@ -8,7 +8,7 @@ xautolock -time 2 -locker "systemctl suspend" -detectsleep &
 xautolock disable &
 
 #enable grayscale
-picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &
+#picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &
 
 #enable red filter
 redshift -O 2300
