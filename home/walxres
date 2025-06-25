@@ -1,0 +1,31 @@
+#bgbar unselborder bgtext titletext selborder fgbar
+dwmlines=(16 1 9 15 15 10)
+dunstlines=(9 10 16)
+#lines=(12 1 16 16 16 10)
+#lines=(16 1 15 15 9 10)
+
+options=("dwm.normbgcolor:" "dwm.normbordercolor:" "dwm.normfgcolor:" "dwm.selfgcolor:" "dwm.selbordercolor:" "dwm.selbgcolor:")
+dunstoptions=("frame_color" "background" "foreground")
+
+truncate -s 0 ~/.Xresourcesdwm
+truncate -s 0 ~/.config/dunst/colormerge
+trash ~/.config/dunst/dunstrc
+
+for i in "${!dwmlines[@]}"; do
+	line=$(sed -n "${dwmlines[$i]}p" ~/.cache/wal/colors)
+	printf "%s %s\n" "${options[$i]}" "$line" >> ~/.Xresourcesdwm
+done
+
+for i in "${!dunstlines[@]}"; do
+	line=$(sed -n "${dunstlines[$i]}p" ~/.cache/wal/colors)
+	printf "    %s = \"%s\"\n" "${dunstoptions[$i]}" "$line" >> ~/.config/dunst/colormerge
+done
+
+cp ~/.config/dunst/dunstrcmerge ~/.config/dunst/dunstrc
+cat ~/.config/dunst/colormerge >> ~/.config/dunst/dunstrc
+
+xrdb -merge ~/.Xresourcesdwm
+xdotool key alt+F5
+
+pkill dunst
+dunst &

@@ -1,0 +1,14 @@
+case "$1" in
+	"enable")
+	echo " Sleep On | " > /home/sfdr/.dotfiles/home/slp
+	xautolock -enable
+	;;
+	"disable")
+	echo " Sleep Off | " > /home/sfdr/.dotfiles/home/slp
+	pkill sleep
+	xautolock -disable
+	;;
+	*)
+	echo "Invalid argument"
+	;;
+esac

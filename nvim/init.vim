@@ -6,6 +6,9 @@ map J 5j
 map K 5k
 
 call plug#begin()
+Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
+Plug 'romgrk/barbar.nvim'
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 Plug 'mikavilpas/yazi.nvim'
 Plug 'folke/snacks.nvim'
@@ -119,13 +122,13 @@ lua <<EOF
 --  require'lspconfig'.gdscript.setup{}
 
   -- Disable virtual_text since it's redundant due to lsp_lines.
-  require("lsp_lines").setup({ enabled = false })
-  vim.diagnostic.config({ virtual_text = false })
-  vim.keymap.set(
-  "",
-  "<Space>lt",
-  require("lsp_lines").toggle,
-  { desc = "Toggle lsp_lines" }
- )
+--  require("lsp_lines").setup({ enabled = false })
+--  vim.diagnostic.config({ virtual_text = false })
+--  vim.keymap.set(
+--  "",
+--  "<Space>lt",
+--  require("lsp_lines").toggle,
+--  { desc = "Toggle lsp_lines" }
+-- )
 
 EOF

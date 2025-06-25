@@ -1,0 +1,10 @@
+#!/bin/bash
+
+while [ true ] ; do
+	if [ $(date +%H) = 19 ]  ; then
+	notify-send "put away"
+	fi
+	sleep 3600s
+done	
+
+

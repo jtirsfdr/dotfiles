@@ -1,0 +1,37 @@
+---
+builddir: ~/.dotfiles/dwm
+url: https://dwm.suckless.org/patches/
+patches:
+  alpha:
+    patch: dwm-alpha-6.4.diff
+    priority: 30
+  appicons:
+    patch: dwm-appicons-6.5.diff
+    priority: 50
+  customrefreshrate:
+    patch: dwm-customrefreshrate-6.5.diff
+    priority: 40
+  restartsig:
+    patch: dwm-restartsig-20180523-6.2.diff
+    priority: 80
+  xrdb:
+    patch: dwm-xrdb-6.4.diff
+    priority: 10
+  vanitygaps:
+    patch: dwm-cfacts-vanitygaps-6.4_combo.diff 
+    priority: 20
+  sticky:
+    patch: dwm-sticky-6.5.diff
+    priority: 70
+  stickyindicator:
+    patch: dwm-stickyindicator-6.2.diff
+    priority: 80
+  statuscmd:
+    patch: dwm-statuscmd-20241009-8933ebc.diff
+    priority: 90
+  swallow:
+    patch: dwm-swallow-6.3.diff
+    priority: 60
+  focusfullscreen:
+    patch: dwm-focusfullscreen-20211121-95e7342.diff
+    priority: 110

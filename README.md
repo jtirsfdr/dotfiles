@@ -146,4 +146,5 @@ In your shell: ```$ maimmega```
 - Allow destructive installs (no backups)
 - Disable log file flag
 - Program to convert aliases to binaries for dmenu
- 
+- Move backups to .dotfiles folder automatically (and allow multiple)
+- Grab modified files from filesystem as opposed to having to edit the same file twice
