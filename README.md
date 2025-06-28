@@ -4,6 +4,12 @@
 ## Install
 Currently only available for Arch
 
+Install script makes many assumptions about the state of your configuration,
+and often breaks / becomes incomplete with updates.
+
+I recommend browsing the install script / folders and manually moving / installing
+the included files until I build a more comprehensive install program
+
 ### In your shell:
 
 ```
