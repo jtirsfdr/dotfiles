@@ -2,6 +2,31 @@ h="/home/$1"
 user="$1"
 echo "Installing to: $h" >> log
 
+install() {
+if [ -f /usr/local/bin/$1 ]; then
+	echo "[WARN]: $1 already installed, skipping" >> log
+else
+	pushd $(pwd)/$1
+	make clean install
+	popd
+	echo "[DONE]: $1 installed" >> log
+fi
+}
+
+copyfile() {
+# $1 = /home/.dotfiles/[srcdir]
+# $2 = [destdir]
+# $3 = [file]
+if [ -f $2$3 ]; then
+	echo "[WARN]: $3 already exists, creating backup at $3~" >> log
+	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
+else
+	sudo -u $user mkdir -p $2
+	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
+	echo "[DONE]: $h/$user copied" >> log
+fi
+}
+
 pacman -Syu --needed neovim \
 7zip \
 acpi \
@@ -27,7 +52,6 @@ man-pages \
 mpv \
 ncdu \
 nemo \
-neofetch \
 nitrogen \
 noto-fonts \
 nsxiv \
@@ -53,7 +77,6 @@ ttf-liberation-mono-nerd \
 ttf-terminus-nerd \
 virt-manager \
 wireplumber \
-xautolock \
 xdg-user-dirs \
 xorg \
 xournalpp \
@@ -65,7 +88,10 @@ zoxide \
 zsh \
 maim \
 zbar \
-megatools
+ttf-terminus-nerd \
+terminus-font \
+dunst \
+dmenu
 
 if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping" >> log
@@ -81,7 +107,11 @@ sudo -u $user yay -S --needed bluetuith \
 downgrade \
 oh-my-posh \
 gotop \
-bibata-cursor-theme
+bibata-cursor-theme-bin \
+zsh-vi-mode \
+megatools \
+xautolock \
+neofetch
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support" >> log
@@ -92,33 +122,9 @@ xdg-user-dirs-update
 systemctl enable --now tlp
 systemctl enable --now cronie
 
-install() {
-if [ -f /usr/local/bin/$1 ]; then
-	echo "[WARN]: $1 already installed, skipping" >> log
-else
-	pushd $(pwd)/$1
-	make clean install
-	popd
-	echo "[DONE]: $1 installed" >> log
-fi
-}
-
-copyfile() {
-# $1 = /home/.dotfiles/[srcdir]
-# $2 = [destdir]
-# $3 = [file]
-if [ -f $2$3 ]; then
-	echo "[WARN]: $3 already exists, creating backup at $3~" >> log
-	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
-else
-	sudo -u $user mkdir -p $2
-	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
-	echo "[DONE]: $h/$user copied" >> log
-fi
-}
 install dwm
 install st
-install dmenu
+#install dmenu
 
 copyfile home/ $h/ .xinitrc
 copyfile home/ $h/ .zshrc
@@ -158,14 +164,14 @@ if [ -d $h/.config/yazi ]; then
 	echo "[WARN]: yazi folder exists, existing configs will be backed up" >> log
 fi
 
-sudo -u $user ya pack -a yazi-rs/plugins:toggle-pane
-sudo -u $user ya pack -a yazi-rs/plugins:git
-sudo -u $user ya pack -a yazi-rs/plugins:full-border
-sudo -u $user ya pack -a yazi-rs/plugins:smart-filter
-sudo -u $user ya pack -a yazi-rs/plugins:smart-enter
-sudo -u $user ya pack -a yazi-rs/plugins:jump-to-char
-sudo -u $user ya pack -a dangooddd/kanagawa
-sudo -u $user ya pack -a bennyyip/gruvbox-dark
+sudo -u $user ya pkg add yazi-rs/plugins:toggle-pane
+sudo -u $user ya pkg add yazi-rs/plugins:git
+sudo -u $user ya pkg add yazi-rs/plugins:full-border
+sudo -u $user ya pkg add yazi-rs/plugins:smart-filter
+sudo -u $user ya pkg add yazi-rs/plugins:smart-enter
+sudo -u $user ya pkg add yazi-rs/plugins:jump-to-char
+sudo -u $user ya pkg add dangooddd/kanagawa
+sudo -u $user ya pkg add bennyyip/gruvbox-dark
 
 sudo -u $user cp $(pwd)/yazi/package.toml $h/.config/yazi/package.toml
 sudo -u $user cp $(pwd)/yazi/keymap.toml $h/.config/yazi/keymap.toml

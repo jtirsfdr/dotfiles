@@ -2,6 +2,6 @@
 
 while [ true ] ;
 do
-	notify-send "unclench"
+	notify-send "move"
 	sleep 3600s
 done

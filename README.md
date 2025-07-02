@@ -4,11 +4,10 @@
 ## Install
 Currently only available for Arch
 
-Install script makes many assumptions about the state of your configuration,
-and often breaks / becomes incomplete with updates.
+Install script often breaks. 
 
-I recommend browsing the install script / folders and manually moving / installing
-the included files until I build a more comprehensive install program
+I'd recommend selectively installing programs manually if you are unfamiliar with
+my environment
 
 ### In your shell:
 

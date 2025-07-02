@@ -39,6 +39,7 @@ cronie 		       - Time based event scheduler
 bluetuith	       - bluetooth controller
 borg/snapper/timeshift - Backup
 anki 		       - Flashcards
+dunst		       - Notification manager
 
 ---
 

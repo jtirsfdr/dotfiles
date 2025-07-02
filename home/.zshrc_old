@@ -1,8 +1,3 @@
-#gocryptfs
-#gocryptfs [encrypted dir] [mountdir]
-#fusermount -u [mountdir]
-#xrdb -merge ~/.Xresources
-
 # ZSH preconfiguration
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -16,26 +11,9 @@ compinit
 
 ## MISC
 # Path
-export PATH="$PATH":/home/sfdr/code/bin
-export PATH="$PATH":/home/sfdr/.local/bin
-export PATH="$PATH":/usr/local/sbin
-export PATH="$PATH":/usr/local/bin
-export PATH="$PATH":/usr/bin:/usr/bin/site_perl
-export PATH="$PATH":/usr/bin/vendor_perl
-export PATH="$PATH":/usr/bin/core_perl
-export PATH="$PATH":/usr/lib/rustup/bin
-export PATH="$PATH":/opt/flutter/bin
-export PATH="$PATH":"$HOME/.pub-cache/bin"
-export PATH="$PATH":"$HOME/.dotfiles/home"
+export PATH=/home/sfdr/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin
 
 # Aliases
-alias vencord='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"'
-alias webcam='gst-launch-1.0 v4l2src device=/dev/video0 ! xvimagesink'
-alias sink='rsync -avP' #src dest
-alias xpp='xournalpp ~/code/xournalpp/default.xopp'
-alias nwp='wal -i ~/Pictures/Wallpapers/active --saturate 0.3 ; /home/sfdr/.dotfiles/home/walxres'
-alias uefireboot='sudo grub-reboot "2" && reboot'
-alias pac='sudo pacman -Syu'
 alias xsleep='xautolock -locker "systemctl suspend" -detectsleep'
 alias son="brightnessctl set 100"
 alias soff="brightnessctl set 0"
@@ -50,8 +28,7 @@ alias rm='echo "Use trash or \\\rm"'
 alias copy='xsel -b -i'
 alias gotop='gotop -c monokai'
 alias grayscale='picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &'
-#alias maimreg='ls "$SSDIR" -A | wc -l | read -r FC ; maim -s | tee "$SSDIR/ss_$FC.png" | xclip -selection clipboard -t image/png'
-alias maimreg='ls "$SSDIR" -A | wc -l | read -r FC && maim -f png -s "$SSDIR/ss_$FC.png"'
+alias maimreg='ls "$SSDIR" -A | wc -l | read -r FC && maim -s | tee "$SSDIR/ss_$FC.png" | xclip -selection clipboard -t image/png'
 alias maimfs='ls "$SSDIR" -A | wc -l | read -r FC && maim "$SSDIR/ss_$FC"'
 alias maimmega='megatools ls --reload --names "/Root/Screenshots" | wc -l | read -r FC ; maim -s | tee "$SSDIR/ssm_$FC.png" ; megatools put "$SSDIR/ssm_$FC.png" --path "/Root/Screenshots/ssm_$FC.png" ; megatools export --reload "/Root/Screenshots/ssm_$FC.png" | xclip -selection clipboard'
 alias qr='maim -qs | zbarimg -q --raw - | xclip -selection clipboard -f'
@@ -61,7 +38,7 @@ alias rotright='xrandr -o right'
 
 ## ENVIRONMENT VARIABLES 
 export EDITOR=nvim
-#export CROC_SECRET="superfooder"
+export CROC_SECRET="superfooder"
 export SSDIR="/home/$USER/Pictures/Screenshots"
 
 #dark mode
@@ -96,5 +73,3 @@ eval "$(oh-my-posh init zsh --config ~/.dotfiles/themes/probua.minimal.omp.json)
 autoload -Uz promptinit
 promptinit
 prompt redhat
-
-source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
