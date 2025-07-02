@@ -91,7 +91,8 @@ zbar \
 ttf-terminus-nerd \
 terminus-font \
 dunst \
-dmenu
+dmenu \
+xdotool \
 
 if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping" >> log
@@ -111,7 +112,8 @@ bibata-cursor-theme-bin \
 zsh-vi-mode \
 megatools \
 xautolock \
-neofetch
+neofetch \
+python-pywal16
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support" >> log
