@@ -131,13 +131,13 @@ install st
 #install dmenu
 
 #[srcdir] [destdir] [filename] + (auto mkdir)
-copyfile home/ /etc/ issue
-copyfile home/ /etc/greetd/ config.toml
+sudo cp $pwd/home/config.toml /etc/greetd/config.toml
+sudo cp $pwd/home/issue /etc/issue
 copyfile home/ $h/ .xinitrc
 copyfile home/ $h/ .zshrc
 copyfile home/ $h/ .Xresources
 copyfile home/ $h/ .zprofile
-copyfile home/ $h/.config/dunst
+copyfile home/ $h/.config/dunst dunstrcmerge
 copyfile vim/ $h/.config/nvim/ init.vim
 copyfile picom/ $h/.config/picom/ picom.conf
 copyfile picom/ $h/.config/picom/shaders/ grayscale.glsl

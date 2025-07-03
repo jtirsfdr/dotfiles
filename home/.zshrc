@@ -6,15 +6,15 @@
 # ZSH preconfiguration
 unsetopt beep
 bindkey -e
-zstyle :compinstall filename '/home/sfdr/.zshrc'
+zstyle :compinstall filename '/home/$USER/.zshrc'
 autoload -Uz compinit
 compinit
 
 
 ## MISC
 # Path
-export PATH="$PATH":/home/sfdr/code/bin
-export PATH="$PATH":/home/sfdr/.local/bin
+export PATH="$PATH":/home/$USER/code/bin
+export PATH="$PATH":/home/$USER/.local/bin
 export PATH="$PATH":/usr/local/sbin
 export PATH="$PATH":/usr/local/bin
 export PATH="$PATH":/usr/bin:/usr/bin/site_perl
@@ -30,7 +30,7 @@ alias vencord='sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/Ve
 alias webcam='gst-launch-1.0 v4l2src device=/dev/video0 ! xvimagesink'
 alias sink='rsync -avP' #src dest
 alias xpp='xournalpp ~/code/xournalpp/default.xopp'
-alias nwp='wal -i ~/Pictures/Wallpapers/active --saturate 0.3 ; /home/sfdr/.dotfiles/home/walxres'
+alias nwp='wal -i ~/Pictures/Wallpapers/active --saturate 0.3 ; /home/$USER/.dotfiles/home/walxres'
 alias uefireboot='sudo grub-reboot "2" && reboot'
 alias pac='sudo pacman -Syu'
 alias xsleep='xautolock -locker "systemctl suspend" -detectsleep'
@@ -46,7 +46,7 @@ alias sudo="sudo "
 alias rm='echo "Use trash or \\\rm"'
 alias copy='xsel -b -i'
 alias gotop='gotop -c monokai'
-alias grayscale='picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &'
+alias grayscale='picom --backend glx --window-shader-fg /home/$USER/.config/picom/shaders/grayscale.glsl &'
 #alias maimreg='ls "$SSDIR" -A | wc -l | read -r FC ; maim -s | tee "$SSDIR/ss_$FC.png" | xclip -selection clipboard -t image/png'
 alias maimreg='ls "$SSDIR" -A | wc -l | read -r FC && maim -f png -s "$SSDIR/ss_$FC.png"'
 alias maimfs='ls "$SSDIR" -A | wc -l | read -r FC && maim "$SSDIR/ss_$FC"'
