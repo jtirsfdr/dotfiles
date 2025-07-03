@@ -94,7 +94,8 @@ dunst \
 dmenu \
 xdotool \
 greetd \
-greetd-tuigreet
+greetd-tuigreet \
+ttf-noto-nerd
 
 if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping" >> log
