@@ -16,7 +16,13 @@ $ git clone https://github.com/jtirsfdr/dotfiles
 $ cd dotfiles
 $ ./install.sh
 $ systemctl --user enable --now pipewire-pulse
+$ sudo systemctl enable --now greetd
 ```
+[NOTE]
+
+greetd has a tendency to break, make sure you're familiar with
+how to switch VTs (Ctrl+Alt+F2).
+
 ### Relogin to switch to zsh
 
 In Neovim:
