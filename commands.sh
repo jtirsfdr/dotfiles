@@ -115,7 +115,9 @@ zsh-vi-mode \
 megatools \
 xautolock \
 neofetch \
-python-pywal16
+python-pywal16 \
+adwaita-qt5-git \
+adwaita-qt6-git
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support" >> log
