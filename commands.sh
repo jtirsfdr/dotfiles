@@ -135,6 +135,7 @@ install st
 #[srcdir] [destdir] [filename] + (auto mkdir)
 sudo cp $(pwd)/home/config.toml /etc/greetd/config.toml
 sudo cp $(pwd)/home/issue /etc/issue
+sudo cp $(pwd)/home/40-libinput.conf /etc/X11/xorg.conf.d/40-libinput.conf
 copyfile home/ $h/ .xinitrc
 copyfile home/ $h/ .zshrc
 copyfile home/ $h/ .Xresources
