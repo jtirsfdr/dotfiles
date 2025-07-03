@@ -1,3 +1,0 @@
-trash config.h
-sudo make clean
-sudo make clean install

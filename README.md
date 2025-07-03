@@ -2,12 +2,12 @@
 ![preview](./preview.png?raw=true)
 
 ## Install
-Currently only available for Arch
+Currently only available for Arch.
 
-Install script often breaks. 
+The install script often breaks. 
 
 I'd recommend selectively installing programs manually if you are unfamiliar with
-my environment
+my environment.
 
 ### In your shell:
 
