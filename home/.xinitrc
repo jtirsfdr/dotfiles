@@ -1,9 +1,6 @@
 #status bar script
-#~/.dotfiles/home/.statusbarpc &
-slstatus &
-
-#progblock 2 (osulazer 7-9)
-/home/sfdr/code/progblock2/progblock2 &
+/home/$USER/.dotfiles/home/.statusbarpc &
+#slstatus &
 
 #notification daemon
 dunst &
@@ -26,7 +23,7 @@ wal -i ~/Pictures/Wallpapers/active --saturate 0.3
 
 #enable sleep
 xautolock -enable &
-echo " Sleep On | " > /home/sfdr/.dotfiles/home/slp
+echo " Sleep On | " > /home/$USER/.dotfiles/home/slp
 
 #enable compositor (transparency, but adds input lag)
 #picom &
@@ -49,7 +46,7 @@ xlayoutdisplay
 #echo "Xft.dpi: 96" | xrdb -merge
 
 #activate colorscheme
-/home/sfdr/.dotfiles/home/walxres
+/home/$USER/.dotfiles/home/walxres
 
 notify-send "Sleep enabled"
 
