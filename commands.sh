@@ -93,6 +93,8 @@ terminus-font \
 dunst \
 dmenu \
 xdotool \
+greetd \
+greetd-tuigreet
 
 if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping" >> log
@@ -129,6 +131,8 @@ install st
 #install dmenu
 
 #[srcdir] [destdir] [filename] + (auto mkdir)
+copyfile home/ /etc/ issue
+copyfile home/ /etc/greetd/ config.toml
 copyfile home/ $h/ .xinitrc
 copyfile home/ $h/ .zshrc
 copyfile home/ $h/ .Xresources

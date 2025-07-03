@@ -15,7 +15,7 @@ xrandr --output HDMI-0 --off
 wal -i ~/Pictures/Wallpapers/active --saturate 0.3 
 
 #set wallpaper (no colorscheme)
-#nitrogen --random --set-zoom-fill ~/Pictures/Wallpapers/active &
+nitrogen --random --set-zoom-fill ~/Pictures/Wallpapers/active &
 
 #disable sleep 
 #xautolock -disable &
@@ -26,13 +26,14 @@ xautolock -enable &
 echo " Sleep On | " > /home/$USER/.dotfiles/home/slp
 
 #enable compositor (transparency, but adds input lag)
-#picom &
+picom &
 
 #enable grayscale
 #picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &
 
 #enable red filter
 #redshift -O 2300
+#redshift -O 3500
 
 #Xresources (cursors)
 xrdb ~/.Xresources
