@@ -155,6 +155,8 @@ In your shell: ```$ maimmega```
 
 ### TODO
 - Allow destructive installs (no backups)
+- Remove $HOME/code folder dependency
+- Add srcs as submodules
 - Disable log file flag
 - Program to convert aliases to binaries for dmenu
 - Move backups to .dotfiles folder automatically (and allow multiple)
