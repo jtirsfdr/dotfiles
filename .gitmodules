@@ -4,3 +4,6 @@
 [submodule "st"]
 	path = st
 	url = https://github.com/jtirsfdr/st
+[submodule "slstatus"]
+	path = slstatus
+	url = https://github.com/jtirsfdr/slstatus
