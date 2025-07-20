@@ -96,7 +96,9 @@ xdotool \
 greetd \
 greetd-tuigreet \
 ttf-noto-nerd \
-uv
+uv \
+sof-firmware 
+
 
 if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping" >> log
@@ -132,7 +134,8 @@ systemctl enable --now cronie
 
 install dwm
 install st
-#install dmenu
+install slstatus
+
 
 #[srcdir] [destdir] [filename] + (auto mkdir)
 sudo cp $(pwd)/home/config.toml /etc/greetd/config.toml
@@ -195,6 +198,8 @@ if [ -d $h/dotfiles ]; then
 	sudo -u $user mv $h/dotfiles $h/.dotfiles
 	echo "[DONE]: Dotfiles directory is now hidden ($h/.dotfiles)" >> log
 fi
+
+go env -w GOPATH=$HOME/.go
 
 echo "### FINISHED ###" >> log
 echo "### Run systemctl --user enable --now pipewire-pulse to fix pulsemixer ###" >> log

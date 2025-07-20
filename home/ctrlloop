@@ -2,6 +2,6 @@
 
 while [ true ] ;
 do
-	notify-send "move"
-	sleep 3600s
+	xdotool key ctrl
+	sleep 9m
 done
