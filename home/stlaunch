@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# creates a shell script that runs in .zshrc, 
+# then immediately deletes it (for launching programs on start)
+
+if [[ -z $1 ]] ; then
+	echo "empty" #ignore
+else
+	echo "something" #create script file based on argument
+fi

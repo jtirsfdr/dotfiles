@@ -52,7 +52,6 @@ man-pages \
 mpv \
 ncdu \
 nemo \
-nitrogen \
 noto-fonts \
 nsxiv \
 odin \
@@ -96,7 +95,33 @@ xdotool \
 greetd \
 greetd-tuigreet \
 ttf-noto-nerd \
-uv
+uv \
+sof-firmware \
+sff \
+bluez \
+bluez-utils \
+fastfetch \
+feh \
+cowsay \
+lolcat \
+sl \
+bat \
+dnsmasq \
+duf \
+dust \
+dolphin \
+raylib \
+rofi \
+strace \
+swaybg \
+swtpm \
+traceroute \
+tree \
+ufw \
+unp \
+
+
+
 
 if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping" >> log
@@ -116,10 +141,47 @@ bibata-cursor-theme-bin \
 zsh-vi-mode \
 megatools \
 xautolock \
-neofetch \
 python-pywal16 \
 adwaita-qt5-git \
-adwaita-qt6-git
+adwaita-qt6-git \
+dragon-drop \
+eza \
+fd \
+fbcat \
+foot \
+gammastep \
+informant \
+outfieldr \
+ipcalc \
+net-tools \
+lazygit \
+localsend \
+lxappearance \
+links \
+lynx \
+mc \
+micro \
+moonlight-qt \
+noto-fonts-cjk \
+obs-studio \
+vi \
+vim \
+whois \
+wireless_tools \
+wine-mono \
+wine-gecko \
+winetricks \
+wmenu \
+wofi \
+wireshark-qt \
+xclip \
+xcolor \
+xinit-xsession \
+xlayoutdisplay \
+zbar \
+zellij \
+zip \
+
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support" >> log
@@ -132,7 +194,8 @@ systemctl enable --now cronie
 
 install dwm
 install st
-#install dmenu
+install slstatus
+
 
 #[srcdir] [destdir] [filename] + (auto mkdir)
 sudo cp $(pwd)/home/config.toml /etc/greetd/config.toml
@@ -195,6 +258,8 @@ if [ -d $h/dotfiles ]; then
 	sudo -u $user mv $h/dotfiles $h/.dotfiles
 	echo "[DONE]: Dotfiles directory is now hidden ($h/.dotfiles)" >> log
 fi
+
+go env -w GOPATH=$HOME/.go
 
 echo "### FINISHED ###" >> log
 echo "### Run systemctl --user enable --now pipewire-pulse to fix pulsemixer ###" >> log
