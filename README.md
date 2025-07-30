@@ -1,5 +1,5 @@
 # Dotfiles
-![preview](./preview.png?raw=true)
+![preview](./preview.jpg?raw=true)
 
 ## Install
 Currently only available for Arch.
@@ -12,7 +12,7 @@ my environment.
 ### In your shell:
 
 ```
-$ git clone https://github.com/jtirsfdr/dotfiles
+$ git clone https://github.com/jtirsfdr/dotfiles --recurse-submodules
 $ cd dotfiles
 $ ./install.sh
 $ systemctl --user enable --now pipewire-pulse
