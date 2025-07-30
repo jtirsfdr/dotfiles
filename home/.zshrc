@@ -39,6 +39,8 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 export PATH="$PATH":"$HOME/.dotfiles/home"
 
 # Alias
+alias neofetch="fastfetch"
+alias sus="systemctl suspend"
 alias t="tldr"
 alias have="pacman -Q | grep"
 alias man="man -P 'less -j5'"

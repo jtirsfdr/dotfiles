@@ -29,14 +29,13 @@ xautolock -enable &
 echo " Sleep On | " > /home/$USER/.dotfiles/home/slp
 
 #enable compositor (transparency, but adds input lag)
-#picom &
+picom &
 
 #enable grayscale
 #picom --backend glx --window-shader-fg /home/sfdr/.config/picom/shaders/grayscale.glsl &
 
 #enable red filter
-#redshift -O 2300
-redshift -O 3500
+#redshift -P -O 3500 -g 1
 
 #Xresources (cursors)
 xrdb ~/.Xresources
@@ -46,8 +45,8 @@ xrdb ~/.Xresources
 
 #max refresh rate {num}x96 works best
 xlayoutdisplay
-#xrandr --dpi 72 --output eDP-1 --mode 1366x768 --pos 0x0 --primary
-#echo "Xft.dpi: 72" | xrdb -merge
+#xrandr --dpi 96 --output DP-4 --mode 1920x1080 --pos 0x0 --rate 120.00 --primary
+#echo "Xft.dpi: 96" | xrdb -merge
 
 #activate colorscheme
 /home/$USER/.dotfiles/home/walxres &
