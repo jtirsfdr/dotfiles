@@ -1,76 +1,6 @@
-#!/bin/bash
-
-# main() is called at last line
-
 h="/home/$1"
 user="$1"
-
-main() {
-
-read -p '
-Main Menu:
-1. View package groups
-2. Set package groups
-3. Install
-4. Quit
-> '  optsel
-case $optsel in
-	1)
-		viewpkg
-		;;
-	2)
-		setpkg
-		;;
-	3)
-		installpkg 
-		;;
-	4)
-		exit
-		;;
-	*)
-		echo "invalid"
-		main
-		;;
-esac
-}
-
-viewpkg() {
-
-read -p '
-View package groups:
-1. CLI
-2. Desktop
-3. Fonts + Cursors + Themes
-4. Development
-5. Extra
-6. Return to menu
-> ' optsel
-
-case $optsel in
-	1)
-		echo "CLI"
-		;;
-	2)
-		echo "Desktop"
-		;;
-	3)
-		echo "Fonts + Cursors"
-		;;
-	4)
-		echo "Development"
-		;;
-	5)
-		echo "Extra"
-		;;
-	6)
-		main
-		;;
-	*)
-		echo "Invalid selection"
-		viewpkg
-		;;
-esac
-}
+echo "Installing to: $h" >> log
 
 install() {
 if [ -f /usr/local/bin/$1 ]; then
@@ -97,214 +27,31 @@ else
 fi
 }
 
-main
-: <<'ENDCOMMENT'
-
-Install yay
-Install programs
-Run xdg-user-dirs
-Copy files
-Enable services
-Hide dotfiles folder
-Change shell
-Warn of TODOS (Go + pipewire)
-
-CLI UNSORTED
-7zip
-acpi
-base
-base-devel
-bat
-bluez
-bluez-utils
-brightnessctl
-cowsay
-croc
-cronie
-dnsmasq
-duf
-dust
-fuse
-fzf
-git
-github-cli
-imagemagick
-lolcat
-man-db
-man-pages
-micro
-mpv
-mpv
-ncdu
-neovim
-net-tools
-openssh 
-pipewire
-pipewire-alsa
-pipewire-pulse
-pulsemixer
-sl
-sof-firmware
-strace
-timeshift
-tlp
-tmux
-trash-cli
-tree
-ufw
-unp
-vi
-vim
-whois
-wireless_tools
-yazi
-zbar
-zellij
-zip
-eza
-xdg-user-dirs
-zsh
-eza
-downgrade
-dragon-drop
-eza
-fbcat
-fd
-gotop
-informant
-ipcalc
-links
-lazygit
-mc
-outfieldr
-python-pywal16
-sudo
-networkmanager
-zsh-vi-mode
-croc
-dnsmasq
-fastfetch
-greetd 
-greetd-tuigreet
-swtpm
-traceroute
-wireplumber
-yt-dlp
-zoxide
-zathura
-fd
-
-DESKTOP
-dwm
-st
-slstatus 
-^^ PATCHED
-
-dmenu
-feh
-gimp
-keepassxc
-kleopatra
-nsxiv
-picom
-rofi
-redshift
-xdotool
-xorg
-xournalpp
-xsel
-xclip
-obs-studio
-xinit-xsession
-xlayoutdisplay
-
-
-WAYLAND
-swaqybg
-sway
-gammastep
-foot
-wmenu
-wofi
-
-
-
-FONTS:
-gnome-themes-extra
-noto-fonts
-terminus-font
-ttf-liberation-mono-nerd
-ttf-noto-nerd
-noto-fonts-cjk
-ttf-terminus-nerd
-adwaita-qt5-git
-adwaita-qt6-git
-bibata-cursor-theme-bin
-lxappearance
-
-
-DEVELOPMENT:
-go
-godot
-odin
-raylib
-uv
-rustup
-
-
-EXTRA UNSORTED
-blender
-ollama
-qemu-full
-virt-manager
-syncthing
-torbrowser-launcher
-localsend
-moonlight-qt
-wine
-wine-gecko
-wine-mono
-
-
-pacman -Syu --needed \
+pacman -Syu --needed neovim \
 7zip \
 acpi \
 base-devel \
-bat \
 blender \
-bluez \
-bluez-utils \
 brightnessctl \
-cowsay \
 croc \
 cronie \
-dmenu \
-dnsmasq \
-duf \
-dunst \
-dust \
-fastfetch \
-feh \
 fuse \
 fzf \
 gimp \
+git \
 git \
 github-cli \
 gnome-themes-extra \
 go \
 godot \
-greetd \
-greetd-tuigreet \
 imagemagick \
 keepassxc \
 kleopatra \
-lolcat \
-maim \
 man-db \
 man-pages \
 mpv \
 ncdu \
-neovim \
+nemo \
 noto-fonts \
 nsxiv \
 odin \
@@ -318,43 +65,63 @@ pipewire-pulse \
 pulsemixer \
 qemu-full \
 raylib \
-raylib \
 redshift \
-rofi \
-sl \
-sof-firmware \
-strace \
-swaybg \
-swtpm \
 syncthing \
-terminus-font \
 timeshift \
 tlp \
 tmux \
 torbrowser-launcher \
-traceroute \
 trash-cli \
-tree \
 ttf-liberation-mono-nerd \
-ttf-noto-nerd \
 ttf-terminus-nerd \
-ttf-terminus-nerd \
-ufw \
-unp \
-uv \
 virt-manager \
 wireplumber \
 xdg-user-dirs \
-xdotool \
 xorg \
 xournalpp \
 xsel \
 yazi \
 yt-dlp \
 zathura \
-zbar \
 zoxide \
 zsh \
+maim \
+zbar \
+ttf-terminus-nerd \
+terminus-font \
+dunst \
+dmenu \
+xdotool \
+greetd \
+greetd-tuigreet \
+ttf-noto-nerd \
+uv \
+sof-firmware \
+sff \
+bluez \
+bluez-utils \
+fastfetch \
+feh \
+cowsay \
+lolcat \
+sl \
+bat \
+dnsmasq \
+duf \
+dust \
+dolphin \
+raylib \
+rofi \
+strace \
+swaybg \
+swtpm \
+traceroute \
+tree \
+ufw \
+unp \
+
+
+
 
 if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "[WARN]: yay already installed, skipping" >> log
@@ -366,47 +133,47 @@ else
 	echo "[DONE]: yay installed" >> log
 fi
 
-sudo -u $user yay -S --needed \
+sudo -u $user yay -S --needed bluetuith \
+downgrade \
+oh-my-posh \
+gotop \
+bibata-cursor-theme-bin \
+zsh-vi-mode \
+megatools \
+xautolock \
+python-pywal16 \
 adwaita-qt5-git \
 adwaita-qt6-git \
-bibata-cursor-theme-bin \
-bluetuith \
-downgrade \
 dragon-drop \
 eza \
-fbcat \
 fd \
+fbcat \
 foot \
 gammastep \
-gotop \
 informant \
+outfieldr \
 ipcalc \
+net-tools \
 lazygit \
-links \
 localsend \
 lxappearance \
+links \
 lynx \
 mc \
-megatools \
 micro \
 moonlight-qt \
-net-tools \
 noto-fonts-cjk \
 obs-studio \
-oh-my-posh \
-outfieldr \
-python-pywal16 \
 vi \
 vim \
 whois \
-wine-gecko \
-wine-mono \
-winetricks \
 wireless_tools \
-wireshark-qt \
+wine-mono \
+wine-gecko \
+winetricks \
 wmenu \
 wofi \
-xautolock \
+wireshark-qt \
 xclip \
 xcolor \
 xinit-xsession \
@@ -414,7 +181,7 @@ xlayoutdisplay \
 zbar \
 zellij \
 zip \
-zsh-vi-mode \
+
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support" >> log
@@ -496,5 +263,3 @@ go env -w GOPATH=$HOME/.go
 
 echo "### FINISHED ###" >> log
 echo "### Run systemctl --user enable --now pipewire-pulse to fix pulsemixer ###" >> log
-ENDCOMMENT
-
