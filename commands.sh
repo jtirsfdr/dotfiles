@@ -16,7 +16,7 @@ user="$1"
 #Create zsh aliases (separate from program)
 
 main() {
-
+clear
 read -p '
 Main Menu:
 
@@ -32,6 +32,7 @@ Main Menu:
 
 case $optsel in
 	1)
+		clear
 		installmenu
 		;;
 	2)
@@ -60,7 +61,6 @@ esac
 }
 
 installmenu() {
-
 read -p '
 View | Install package groups: 
 
@@ -77,6 +77,7 @@ View | Install package groups:
 
 #viewpkg [filename] [header]
 
+clear
 case $optsel in
 	0)
 		echo "yay"
@@ -104,7 +105,7 @@ case $optsel in
 		installyay
 		;;
 	b)
-		installpkg
+		installpkg "cli"
 		;;
 	c)
 		installpkg
@@ -131,6 +132,15 @@ case $optsel in
 esac
 }
 
+installpkg(){
+	#pacman -Syu
+	export envfilename=$PWD/pkg/$1 #
+	export envpkgcount=$(wc -l < $envfilename)
+	runuser -l $user --whitelist-environment=envfilename,envpkgcount -c 'echo $envpkgcount ; sleep 5s'
+
+#	runuser -l $user --whitelist-environment "$envfilename,$envpkgcount" -c 'cat $filename | tr '\n' ' ' | xargs -n $((pkgcount-1)) yay -S --needed {}'
+}
+
 installyay(){
 if [ -d "$PWD/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "yay already installed"
@@ -142,6 +152,8 @@ else
 	popd
 	echo "yay Installed"
 fi
+
+	installmenu
 }
 
 viewpkg() {
