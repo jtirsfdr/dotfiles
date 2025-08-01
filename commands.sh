@@ -4,60 +4,87 @@
 
 h="/home/$1"
 user="$1"
-#Install yay
-#Install programs
-#Run xdg-user-dirs
+running=true
+
+TODO
 #Copy files
-#Enable services
 #Hide dotfiles folder
 #Change shell
 #Warn of TODOS (Go + pipewire)
 
 #Create zsh aliases (separate from program)
 
-main() {
 clear
-read -p '
+
+main() {
+	while [ $running = true ] ; 
+do
+	mainmenu
+done
+}
+
+mainmenu() {
+	read -p \
+'
 Main Menu:
+
+
+0. Setup environment with defaults
 
 1. Install packages
 2. Create user directories
-3. Copy config files
-4. Toggle dotfiles folder visibility
-5. Change shell
-6. Do all options with (my) defaults
+3. Downgrade bluez (controller fix)
+4. Enable tlp, cronie, & ntp services
+5. Copy config files
+6. Toggle dotfiles folder visibility
+7. Change shell
 
-7. Quit
+8. Quit
 > '  optsel
 
-case $optsel in
-	1)
-		clear
-		installmenu
-		;;
-	2)
-		createuserdirs
-		;;
-	3)
-		copymenu
-		;;
-	4)
-		togglevisibility
-		;;
-	5)
-		changeshell
-		;;
-	6)
-		rundefaults
-		;;
-	7 | exit | quit | q)
-		exit
-		;;
-	*)
-		echo "invalid"
-		main
-		;;
-esac
+	clear
+	case $optsel in
+		0)
+			rundefaults
+			;;
+		1)
+			installmenu
+			;;
+		2)
+			createuserdirs
+			;;
+		3)
+			downgradebluez
+			;;
+		4)
+			enableservices
+			;;
+		5)
+			copymenu
+			;;
+		6)
+			togglevisibility
+			;;
+		7)
+			changeshell
+			;;
+		8 | exit | quit | q)
+			exit
+			;;
+		*)
+			echo "invalid input"
+			;;
+	esac
+}
+
+downgradebluez() {
+	sudo downgrade bluez bluez-utils --oldest --ignore always -- --needed
+	clear
+	echo \
+"bluez & bluez-utils downgraded to oldest available version.
+This isn't recommended. Consider manually running downgrade
+and switching to version 5.68
+---"
 }
 
 installmenu() {
@@ -80,23 +107,23 @@ View | Install package groups:
 clear
 case $optsel in
 	0)
-		echo "yay"
-		installmenu
+		viewyay
 		;;
 	1)
 		viewpkg "cli"     "### CLI: About 800MB ###"
+
 		;;
 	2)
-		viewpkg "desktop" "### DESKTOP: About 2GB ###"
+		viewpkg "desktop" "### DESKTOP: About 1.2GB ###"
 		;;
 	3)
-		viewpkg "font"    "### FONTS: About 3GB ###"
+		viewpkg "font"    "### FONTS: About 2GB ###"
 		;;
 	4)
-		viewpkg "dev"     "### DEVELOPMENT: About 4GB ###"
+		viewpkg "dev"     "### DEVELOPMENT: About 700MB ###"
 		;;
 	5)
-		viewpkg "extra"   "### EXTRA: About 3 GB ###"
+		viewpkg "extra"   "### EXTRA: About 4 GB ###"
 		;;
 	6)
 		viewpkg "all"     "### ALL: About 10 GB ###"
@@ -105,10 +132,14 @@ case $optsel in
 		installyay
 		;;
 	b)
+		sudo -u $user sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 		installpkg "cli"
 		;;
 	c)
 		installpkg "desktop"
+		installsuckless
 		;;
 	d)
 		installpkg "font"
@@ -123,7 +154,7 @@ case $optsel in
 		installpkg "all"
 		;;
 	7)
-		main
+		return
 		;;
 	exit | quit | q)
 		exit
@@ -133,213 +164,143 @@ case $optsel in
 		installmenu
 		;;
 esac
+
+installmenu
+
+}
+
+viewyay() {
+	echo "yay" #add ascii
+	echo "---"
+}
+
+enableservices() {
+	systemctl enable --now tlp
+	systemctl enable --now cronie
+	systemctl enable --now systemd-timesyncd
+	echo \
+"Make sure you enable pipewire-pulse manually.
+> systemctl --user enable --now pipewire-pulse
+---"
+}
+
+installsuckless() { #IMPLEMENT!!!
+#for each argument
+#run installer 
+	if [ -f /usr/local/bin/$1 ]; then
+		echo "[WARN]: $1 already installed, skipping" >> log
+	else
+		pushd $(pwd)/$1
+		make clean install
+		popd
+		echo "[DONE]: $1 installed" >> log
+	fi
 }
 
 installpkg(){
-	pacman -Syu
 	export envfilename=$PWD/pkg/$1 #
 	export envpkgcount=$(wc -l < $envfilename)
+	
+	pacman -Syu
+
 	runuser -P -l $user --whitelist-environment=envfilename,envpkgcount -c 'xargs < $envfilename -n $envpkgcount yay -S --noconfirm --needed '
 
+	clear
 }
-
+createuserdirs(){
+	if [ -f "/usr/bin/xdg-user-dirs-update" ] ; then
+		xdg-user-dirs-update
+		echo "User directories created"
+		echo "---"
+	else
+		echo "Missing xdg-user-dirs, make sure it's installed"
+		echo "---"
+	fi
+}
 installyay(){
 if [ -d "$PWD/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "yay already installed"
+	echo "---"	
 else
 	pacman -Syu --needed git base-devel
 	sudo -u $user git clone https://aur.archlinux.org/yay.git
 	pushd yay
 	sudo -u $user makepkg -si
 	popd
-	echo "yay Installed"
+	echo "yay installed"
+	echo "---"
+	
 fi
 
-	installmenu
 }
 
 viewpkg() {
-filename=$PWD/pkg/$1 #internal
-header=$2 #internal
-longestpkg=$(awk '{if (length > max) { max = length; longest = $0 } } END { print longest }' $filename)
-maxlength=$((${#longestpkg} + 4)) # 4 accounts for delimiters and spaces
-terminal=/dev/tty
-columns=$(stty -a <"$terminal" | grep -Po '(?<=columns )\d+')
-entries=$(((columns-4)/maxlength))
-pkgcount=$(wc -l < $filename)
-frontbuffer=2
+	filename=$PWD/pkg/$1 #internal
+	header=$2 #internal
+	longestpkg=$(awk '{if (length > max) { max = length; longest = $0 } } END { print longest }' $filename)
+	maxlength=$((${#longestpkg} + 4)) # 4 accounts for delimiters and spaces
+	terminal=/dev/tty
+	columns=$(stty -a <"$terminal" | grep -Po '(?<=columns )\d+')
+	entries=$(((columns-4)/maxlength))
+	pkgcount=$(wc -l < $filename)
+	frontbuffer=2
 
-echo "
+	echo "
 $header
-"
+	     "
 
-#this is slow af but i dont want to reduce time complexity rn
-for ((mult = 0; mult <= $((pkgcount / entries)); mult++));
-do
-	for ((i = 1; i <= entries; i++));
+	#this is slow af but i dont want to reduce time complexity rn
+	for ((mult = 0; mult <= $((pkgcount / entries)); mult++));
 	do
-		pkgindex=$((mult * entries))
-		pkg=$(sed "$((pkgindex + i))q;d" $filename)
-		count=$(echo -n $pkg | wc -m)
-		if [ $count != "0" ] ; then
-			printf "| %*s" $((frontbuffer))
-			printf "%s " $pkg
-			printf "%*s" $((maxlength-count-frontbuffer-1))
-		fi
+		for ((i = 1; i <= entries; i++));
+		do
+			pkgindex=$((mult * entries))
+			pkg=$(sed "$((pkgindex + i))q;d" $filename)
+			count=$(echo -n $pkg | wc -m)
+			if [ $count != "0" ] ; then
+				printf "| %*s" $((frontbuffer))
+				printf "%s " $pkg
+				printf "%*s" $((maxlength-count-frontbuffer-1))
+			fi
+		done
+		printf "|\n"
 	done
-	printf "|\n"
-done
-
-installmenu
-
-}
-
-install() {
-if [ -f /usr/local/bin/$1 ]; then
-	echo "[WARN]: $1 already installed, skipping" >> log
-else
-	pushd $(pwd)/$1
-	make clean install
-	popd
-	echo "[DONE]: $1 installed" >> log
-fi
+	echo "---"
 }
 
 copyfile() {
-# $1 = /home/.dotfiles/[srcdir]
-# $2 = [destdir]
-# $3 = [file]
-if [ -f $2$3 ]; then
-	echo "[WARN]: $3 already exists, creating backup at $3~" >> log
-	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
-else
-	sudo -u $user mkdir -p $2
-	sudo -u $user cp --backup $(pwd)/$1$3 $2$3
-	echo "[DONE]: $h/$user copied" >> log
-fi
+	# $1 = /home/.dotfiles/[srcdir]
+	# $2 = [destdir]
+	# $3 = [file]
+	if [ -f $2$3 ]; then
+		echo "[WARN]: $3 already exists, creating backup at $3~" >> log
+		sudo -u $user cp --backup $(pwd)/$1$3 $2$3
+	else
+		sudo -u $user mkdir -p $2
+		sudo -u $user cp --backup $(pwd)/$1$3 $2$3
+		echo "[DONE]: $h/$user copied" >> log
+	fi
 }
 
 main
+
 : <<'ENDCOMMENT'
 
 Install yay
 Install programs
 Run xdg-user-dirs
+Downgrade bluez & bluezutils
 Copy files
-Enable services
+Enable services (tlp, cronie, ntp)
 Hide dotfiles folder
 Change shell
 Warn of TODOS (Go + pipewire)
-
-CLI UNSORTED
-7zip
-acpi
-base
-base-devel
-bat
-bluez
-bluez-utils
-brightnessctl
-cowsay
-croc
-cronie
-dnsmasq
-duf
-dust
-fuse
-fzf
-git
-github-cli
-imagemagick
-lolcat
-man-db
-man-pages
-micro
-mpv
-mpv
-ncdu
-neovim
-net-tools
-openssh 
-pipewire
-pipewire-alsa
-pipewire-pulse
-pulsemixer
-sl
-sof-firmware
-strace
-timeshift
-tlp
-tmux
-trash-cli
-tree
-ufw
-unp
-vi
-vim
-whois
-wireless_tools
-yazi
-zbar
-zellij
-zip
-eza
-xdg-user-dirs
-zsh
-eza
-downgrade
-eza
-fbcat
-fd
-gotop
-informant
-ipcalc
-links
-lazygit
-mc
-outfieldr
-python-pywal16
-sudo
-networkmanager
-zsh-vi-mode
-croc
-dnsmasq
-fastfetch
-greetd 
-greetd-tuigreet
-swtpm
-traceroute
-wireplumber
-yt-dlp
-zoxide
-fd
 
 DESKTOP
 dwm
 st
 slstatus 
 ^^ PATCHED
-
-dragon-drop
-dmenu
-feh
-gimp
-keepassxc
-kleopatra
-nsxiv
-picom
-rofi
-redshift
-xdotool
-xorg
-xournalpp
-xsel
-xclip
-obs-studio
-xinit-xsession
-xlayoutdisplay
-zathura \
-timeshift \
 
 WAYLAND
 swaqybg
@@ -348,196 +309,6 @@ gammastep
 foot
 wmenu
 wofi
-
-
-
-FONTS:
-gnome-themes-extra
-noto-fonts
-terminus-font
-ttf-liberation-mono-nerd
-ttf-noto-nerd
-noto-fonts-cjk
-ttf-terminus-nerd
-adwaita-qt5-git
-adwaita-qt6-git
-bibata-cursor-theme-bin
-lxappearance
-
-
-DEVELOPMENT:
-go
-python
-godot
-odin
-raylib
-uv
-rustup
-
-
-EXTRA UNSORTED
-blender
-ollama
-qemu-full
-virt-manager
-syncthing
-torbrowser-launcher
-localsend
-moonlight-qt
-wine
-wine-gecko
-wine-mono
-
-
-pacman -Syu --needed \
-7zip \
-acpi \
-base-devel \
-bat \
-blender \
-bluez \
-bluez-utils \
-brightnessctl \
-cowsay \
-croc \
-cronie \
-dmenu \
-dnsmasq \
-duf \
-dunst \
-dust \
-fastfetch \
-feh \
-fuse \
-fzf \
-gimp \
-git \
-github-cli \
-gnome-themes-extra \
-go \
-godot \
-greetd \
-greetd-tuigreet \
-imagemagick \
-keepassxc \
-kleopatra \
-lolcat \
-maim \
-man-db \
-man-pages \
-mpv \
-ncdu \
-neovim \
-noto-fonts \
-nsxiv \
-odin \
-ollama \
-openssh \
-openssh \
-picom \
-pipewire \
-pipewire-alsa \
-pipewire-pulse \
-pulsemixer \
-qemu-full \
-raylib \
-raylib \
-redshift \
-rofi \
-sl \
-sof-firmware \
-strace \
-swaybg \
-swtpm \
-syncthing \
-terminus-font \
-timeshift \
-tlp \
-tmux \
-torbrowser-launcher \
-traceroute \
-trash-cli \
-tree \
-ttf-liberation-mono-nerd \
-ttf-noto-nerd \
-ttf-terminus-nerd \
-ttf-terminus-nerd \
-ufw \
-unp \
-uv \
-virt-manager \
-wireplumber \
-xdg-user-dirs \
-xdotool \
-xorg \
-xournalpp \
-xsel \
-yazi \
-yt-dlp \
-zathura \
-zbar \
-zoxide \
-zsh \
-
-if [ -d "/home/$user/.dotfiles/yay" ] || [ -f "/usr/bin/yay" ]; then
-	echo "[WARN]: yay already installed, skipping" >> log
-else
-	mkdir -p /home/$user/.dotfiles && cd /home/$user/.dotfiles
-	sudo -u $user git clone https://aur.archlinux.org/yay.git
-	cd yay
-	sudo -u $user makepkg -si
-	echo "[DONE]: yay installed" >> log
-fi
-
-sudo -u $user yay -S --needed \
-adwaita-qt5-git \
-adwaita-qt6-git \
-bibata-cursor-theme-bin \
-bluetuith \
-downgrade \
-dragon-drop \
-eza \
-fbcat \
-fd \
-foot \
-gammastep \
-gotop \
-informant \
-ipcalc \
-lazygit \
-links \
-localsend \
-lxappearance \
-lynx \
-mc \
-megatools \
-micro \
-moonlight-qt \
-net-tools \
-noto-fonts-cjk \
-obs-studio \
-oh-my-posh \
-outfieldr \
-python-pywal16 \
-vi \
-vim \
-whois \
-wine-gecko \
-wine-mono \
-winetricks \
-wireless_tools \
-wireshark-qt \
-wmenu \
-wofi \
-xautolock \
-xclip \
-xcolor \
-xinit-xsession \
-xlayoutdisplay \
-zbar \
-zellij \
-zip \
-zsh-vi-mode \
 
 #Bluetooth controller fix
 echo "[WARN]: Performing downgrade on bluetooth library for bluetooth controller support" >> log
