@@ -62,63 +62,37 @@ esac
 installmenu() {
 
 read -p '
-View | Install package groups: 
+View | Install package groups:
 
-0.   | a. yay - AUR Helper (Required)
-1.   | b. CLI
-2.   | c. Desktop
-3.   | d. Fonts + Cursors + Themes
-4.   | e. Development
+1    | a. CLI
+2    | b. Desktop
+3    | c. Fonts + Cursors + Themes
+4.   | d. Development
 5.   | e. Extra
 6.   | f. All
 
 7. Return to menu
 > ' optsel
 
-#viewpkg [filename] [header]
+#viewpkg [pkgfilename] [header]
 
 case $optsel in
-	0)
-		echo "yay"
-		installmenu
-		;;
 	1)
-		viewpkg "cli"     "### CLI: About 900MB ###"
+		viewpkg "cli" "### CLI: About 900MB ###"
 		;;
 	2)
-		viewpkg "desktop" "### DESKTOP: About 2GB ###"
+
 		;;
 	3)
-		viewpkg "font"    "### FONTS: About 3GB ###"
+		echo "Fonts + Cursors"
 		;;
 	4)
-		viewpkg "dev"     "### DEVELOPMENT: About 4GB ###"
+		echo "Development"
 		;;
 	5)
-		viewpkg "extra"   "### EXTRA: About 3 GB ###"
+		echo "Extra"
 		;;
 	6)
-		viewpkg "all"     "### ALL: About 10 GB ###"
-		;;
-	a)
-		installyay
-		;;
-	b)
-		installpkg
-		;;
-	c)
-		installpkg
-		;;
-	d)
-		installpkg
-		;;
-	e)
-		installpkg
-		;;
-	f)
-		installpkg
-		;;
-	7)
 		main
 		;;
 	exit | quit | q)
@@ -129,51 +103,34 @@ case $optsel in
 		installmenu
 		;;
 esac
-}
 
-installyay(){
-if [ -d "$PWD/yay" ] || [ -f "/usr/bin/yay" ]; then
-	echo "yay already installed"
-else
-	pacman -Syu --needed git base-devel
-	sudo -u $user git clone https://aur.archlinux.org/yay.git
-	pushd yay
-	sudo -u $user makepkg -si
-	popd
-	echo "yay Installed"
-fi
 }
-
 viewpkg() {
-filename=$PWD/pkg/$1 #internal
+filename=$PWD/$1 #internal
 header=$2 #internal
 longestpkg=$(awk '{if (length > max) { max = length; longest = $0 } } END { print longest }' $filename)
-maxlength=$((${#longestpkg} + 4)) # 4 accounts for delimiters and spaces
-terminal=/dev/tty
+maxlength=$((${#longestpkg} + 4)) # +4 accounts for delimiters + spaces
+terminal=/dev/pts/1
 columns=$(stty -a <"$terminal" | grep -Po '(?<=columns )\d+')
-entries=$(((columns-4)/maxlength))
-pkgcount=$(wc -l < $filename)
-frontbuffer=2
+newline=$((columns/maxlength))
+lines=$(wc -l < $filename)
 
 echo "
 $header
 "
-
+#cover case where maxlength>columns !!!
 #this is slow af but i dont want to reduce time complexity rn
-for ((mult = 0; mult <= $((pkgcount / entries)); mult++));
+for ((mult = 0; mult <= $((lines / newline)); mult++));
 do
-	for ((i = 1; i <= entries; i++));
+	for ((i = 1; i <= newline; i++));
 	do
-		pkgindex=$((mult * entries))
-		pkg=$(sed "$((pkgindex + i))q;d" $filename)
+		pkgindex=$((mult * newline))
+		pkg=$(sed "$((pkgindex + i))q;d" /home/sfdr/dotfiles/cli)
+		printf "| %s " $pkg
 		count=$(echo -n $pkg | wc -m)
-		if [ $count != "0" ] ; then
-			printf "| %*s" $((frontbuffer))
-			printf "%s " $pkg
-			printf "%*s" $((maxlength-count-frontbuffer-1))
-		fi
+		printf "%*s" $((maxlength-count))
 	done
-	printf "|\n"
+	printf "\n"
 done
 
 installmenu
@@ -361,7 +318,6 @@ lxappearance
 
 DEVELOPMENT:
 go
-python
 godot
 odin
 raylib

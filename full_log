@@ -1,19 +1,24 @@
 
 Main Menu:
-1. View package groups
-2. Set package groups
-3. Install
-4. Quit
+
+1. Install packages
+2. Create user directories
+3. Copy config files
+4. Toggle dotfiles folder visibility
+5. Change shell
+6. Do all options with (my) defaults
+
+7. Quit
 > 
-| 7zip                | acpi                | base                | base-devel          | bat                 | bluez               
-| bluez-utils         | brightnessctl       | cowsay              | croc                | cronie              | dnsmasq             
-| duf                 | dust                | eza                 | fastfetch           | fd                  | fuse                
-| fzf                 | git                 | github-cli          | greetd              | greetd-tuigreet     | imagemagick         
-| ipcalc              | lazygit             | links               | lolcat              | man-db              | man-pages           
-| mc                  | micro               | mpv                 | ncdu                | neovim              | net-tools           
-| networkmanager      | openssh             | pipewire            | pipewire-alsa       | pipewire-pulse      | pulsemixer          
-| sl                  | sof-firmware        | strace              | sudo                | swtpm               | tlp                 
-| tmux                | traceroute          | trash-cli           | tree                | ufw                 | unp                 
-| vi                  | vim                 | whois               | wireless_tools      | wireplumber         | xdg-user-dirs       
-| yazi                | yt-dlp              | zbar                | zellij              | zip                 | zoxide              
-| zsh                 |                     |                     |                     |                     |                     
+View | Install package groups: 
+
+0.   | a. yay - AUR Helper (Required)
+1.   | b. CLI
+2.   | c. Desktop
+3.   | d. Fonts + Cursors + Themes
+4.   | e. Development
+5.   | e. Extra
+6.   | f. All
+
+7. Return to menu
+> 
