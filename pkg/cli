@@ -7,6 +7,7 @@ bluetuith
 bluez
 bluez-utils 
 brightnessctl 
+clifm
 cowsay 
 croc 
 cronie 
@@ -16,7 +17,7 @@ duf
 dust 
 eza 
 fastfetch 
-fbcat
+fbgrab
 fd 
 fuse 
 fzf
@@ -28,7 +29,6 @@ kmon
 greetd
 greetd-tuigreet
 imagemagick
-informant
 ipcalc
 lazygit
 tgpt

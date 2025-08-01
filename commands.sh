@@ -69,8 +69,8 @@ View | Install package groups:
 2.   | c. Desktop
 3.   | d. Fonts + Cursors + Themes
 4.   | e. Development
-5.   | e. Extra
-6.   | f. All
+5.   | f. Extra
+6.   | g. All
 
 7. Return to menu
 > ' optsel
@@ -84,7 +84,7 @@ case $optsel in
 		installmenu
 		;;
 	1)
-		viewpkg "cli"     "### CLI: About 900MB ###"
+		viewpkg "cli"     "### CLI: About 800MB ###"
 		;;
 	2)
 		viewpkg "desktop" "### DESKTOP: About 2GB ###"
@@ -108,16 +108,19 @@ case $optsel in
 		installpkg "cli"
 		;;
 	c)
-		installpkg
+		installpkg "desktop"
 		;;
 	d)
-		installpkg
+		installpkg "font"
 		;;
 	e)
-		installpkg
+		installpkg "dev"
 		;;
 	f)
-		installpkg
+		installpkg "extra"
+		;;
+	g)
+		installpkg "all"
 		;;
 	7)
 		main
@@ -133,12 +136,11 @@ esac
 }
 
 installpkg(){
-	#pacman -Syu
+	pacman -Syu
 	export envfilename=$PWD/pkg/$1 #
 	export envpkgcount=$(wc -l < $envfilename)
-	runuser -l $user --whitelist-environment=envfilename,envpkgcount -c 'echo $envpkgcount ; sleep 5s'
+	runuser -P -l $user --whitelist-environment=envfilename,envpkgcount -c 'xargs < $envfilename -n $envpkgcount yay -S --noconfirm --needed '
 
-#	runuser -l $user --whitelist-environment "$envfilename,$envpkgcount" -c 'cat $filename | tr '\n' ' ' | xargs -n $((pkgcount-1)) yay -S --needed {}'
 }
 
 installyay(){
@@ -191,14 +193,6 @@ done
 installmenu
 
 }
-: <<'ENDCOMMENT'
-#yay -S --needed downgrade \
-#bluetuith \
-#fbcat \
-#informant \
-#python-pywal16 \
-#zsh-vi-mode 
-ENDCOMMENT
 
 install() {
 if [ -f /usr/local/bin/$1 ]; then
