@@ -16,13 +16,13 @@ Main Menu:
 > '  optsel
 case $optsel in
 	1)
-		viewpkg
+		viewmenu
 		;;
 	2)
-		setpkg
+		setmenu
 		;;
 	3)
-		installpkg 
+		installmenu
 		;;
 	4)
 		exit
@@ -46,12 +46,16 @@ View package groups:
 6. Return to menu
 > ' optsel
 
+#viewpkg [pkgfilename] [header]
+
 case $optsel in
 	1)
-		echo "CLI"
+		viewpkg
+		viewmenu "cli" "CLI: About 800MB"
 		;;
 	2)
 		echo "Desktop"
+		viewdesktoppkg
 		;;
 	3)
 		echo "Fonts + Cursors"
@@ -70,6 +74,115 @@ case $optsel in
 		viewpkg
 		;;
 esac
+
+}
+viewdesktoppkg() {
+	awktest=$(awk '{if (length > max) { max = length; longest = $0 } } END { print longest }' /home/sfdr/dotfiles/cli)
+	printf "%s\n" $awktest
+}
+view() {
+longestpkg=$(awk '{if (length > max) { max = length; longest = $0 } } END { print longest }' /home/sfdr/dotfiles/cli)
+maxlength=$((${#longestpkg} + 3)) #3 accounts for 2 delimiters + at least 1 space
+terminal=/dev/pts/1
+columns=$(stty -a <"$terminal" | grep -Po '(?<=columns )\d+')
+newline=$((columns/maxlength))
+lines=$(wc -l < /home/sfdr/dotfiles/cli)
+echo "$1"
+
+#cover case where maxlength>columns !!!
+#this is slow af but i dont want to reduce time complexity rn
+for ((mult = 0; mult <= $((lines / newline)); mult++));
+do
+	for ((i = 1; i <= newline; i++));
+	do
+		pkgindex=$((mult * newline))
+		pkg=$(sed "$((pkgindex + i))q;d" /home/sfdr/dotfiles/cli)
+		printf "| %s " $pkg
+		count=$(echo -n $pkg | wc -m)
+		printf "%*s" $((maxlength-count))
+	done
+	printf "\n"
+done
+
+: <<'ENDCOMMENT'
+sudo pacman -Syu \
+7zip \
+acpi \
+base \
+base-devel \
+bat \
+bluez \
+bluez-utils \
+brightnessctl \
+cowsay \
+croc \
+cronie \
+dnsmasq \
+duf \
+dust \
+eza \
+fastfetch \
+fd \
+fuse \
+fzf \
+git \
+github-cli \
+greetd  \
+greetd-tuigreet \
+imagemagick \
+ipcalc \
+lazygit \
+links \
+lolcat \
+man-db \
+man-pages \
+mc \
+micro \
+mpv \
+ncdu \
+neovim \
+net-tools \
+networkmanager \
+openssh  \
+pipewire \
+pipewire-alsa \
+pipewire-pulse \
+pulsemixer \
+sl \
+sof-firmware \
+strace \
+sudo \
+swtpm \
+tlp \
+tmux \
+traceroute \
+trash-cli \
+tree \
+ufw \
+unp \
+vi \
+vim \
+whois \
+wireless_tools \
+wireplumber \
+xdg-user-dirs \
+yazi \
+yt-dlp \
+zbar \
+zellij \
+zip \
+zoxide \
+zsh \
+
+#yay -S --needed downgrade \
+#bluetuith \
+#fbcat \
+#informant \
+#gotop \
+#outfieldr \
+#python-pywal16 \
+#zsh-vi-mode 
+ENDCOMMENT
 }
 
 install() {
@@ -166,7 +279,6 @@ xdg-user-dirs
 zsh
 eza
 downgrade
-dragon-drop
 eza
 fbcat
 fd
@@ -191,7 +303,6 @@ traceroute
 wireplumber
 yt-dlp
 zoxide
-zathura
 fd
 
 DESKTOP
@@ -200,6 +311,7 @@ st
 slstatus 
 ^^ PATCHED
 
+dragon-drop
 dmenu
 feh
 gimp
@@ -217,7 +329,8 @@ xclip
 obs-studio
 xinit-xsession
 xlayoutdisplay
-
+zathura \
+timeshift \
 
 WAYLAND
 swaqybg
