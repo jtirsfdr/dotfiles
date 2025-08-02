@@ -2,28 +2,32 @@
 ![preview](./preview.jpg?raw=true)
 
 ## Install
-Currently only available for Arch.
+Dependencies:
 
-The install script often breaks. 
+base-devel
+git
+sudo
+gpg
 
-I'd recommend selectively installing programs manually if you are unfamiliar with
-my environment.
-
-### In your shell:
-
+### Autoinstall (recommended):
 ```
-$ git clone https://github.com/jtirsfdr/dotfiles --recurse-submodules
-$ cd dotfiles
-$ ./install.sh
-$ systemctl --user enable --now pipewire-pulse
-$ sudo systemctl enable --now greetd
+sudo pacman -Syu --needed base-devel git sudo gpg
+git clone https://github.com/jtirsfdr/dotfiles --recurse-submodules
+cd dotfiles
+./install.sh --auto
+systemctl --user enable --now pipewire-pulse
+go env -w GOPATH=$HOME/.go
+reboot
 ```
+
 [NOTE]
 
 greetd has a tendency to break, make sure you're familiar with
 how to switch VTs (Ctrl+Alt+F2).
 
-### Relogin to switch to zsh
+### Post configuration
+
+## Relogin to switch to zsh
 
 In Neovim:
 
@@ -61,103 +65,164 @@ In your shell: ```$ maimmega```
 - Patched st ```/usr/bin/st-flexipatch/```
 - Wallpapers folder ```~/Pictures/Wallpapers```
 
-## Packages downloaded
-### Review commands.sh for the most up to date list
-- 7zip 
-- acpi 
-- anki
-- base-devel 
-- bibata cursor
-- blender 
+## Full package list
+- 7zip
+- acpi
+- adwaita-qt5-git
+- adwaita-qt6-git
+- base
+- base-devel
+- bat
+- bibata-cursor-theme-bin
+- blender
 - bluetuith
+- bluez
+- bluez-utils 
 - brightnessctl 
-- calibre
+- btop
+- cowsay 
 - croc 
 - cronie 
-- firefox
+- dmenu
+- dnsmasq 
+- downgrade
+- dragon-drop
+- duf 
+- dust 
+- eza 
+- fastfetch 
+- fbcat
+- fd 
+- feh
+- foot
 - fuse 
-- fzf 
-- gimp 
-- git 
-- git 
-- github-cli 
-- gnome-themes-extra 
-- go 
-- godot 
-- gotop
-- imagemagick 
-- keepassxc 
-- kleopatra 
-- maimmega
-- man-db 
-- man-pages 
-- megatools
-- moonlight
-- mpv 
-- ncdu 
-- nemo 
-- neofetch 
-- neovim  
-- nitrogen
-- nitrogen 
-- noto-fonts 
-- nsxiv 
-- odin 
-- oh my posh (probua minimal theme)
-- ollama 
-- openssh 
-- openssh 
-- picom  
-- pipewire 
-- pipewire-alsa 
-- pipewire-pulse 
-- pulsemixer 
-- qemu
-- qemu-full 
-- raylib 
-- redshift 
-- sunshine
-- syncthing 
+- fzf
+- gammastep
+- gimp
+- git
+- github-cli
+- gnome-themes-extra
+- go
+- godot
+- greetd
+- greetd-tuigreet
+- htop
+- imagemagick
+- informant
+- ipcalc
+- keepassxc
+- kleopatra
+- kmon
+- lazygit
+- links
+- localsend
+- lolcat
+- lxappearance
+- man-db
+- man-pages
+- mc
+- micro
+- moonlight-qt
+- mpv
+- ncdu
+- neovim
+- net-tools
+- networkmanager
+- noto-fonts
+- noto-fonts-cjk
+- nsxiv
+- obs-studio
+- odin
+- ollama
+- openssh
+- picom
+- pipewire
+- pipewire-alsa
+- pipewire-pulse
+- pulsemixer
+- python
+- python-pywal16
+- qemu-full
+- raylib
+- redshift
+- rofi
+- rustup
+- sl
+- sof-firmware
+- strace 
+- sudo
+- swaqybg
+- sway
+- swtpm
+- syncthing
+- tealdeer
+- terminus-font
+- tgpt
 - timeshift 
 - tlp 
-- tmux 
-- torbrowser-launcher 
-- trash-cli 
-- ttf-terminus-nerd 
+- tmux
+- torbrowser-launcher
+- traceroute
+- trash-cli
+- tree
+- ttf-liberation-mono-nerd
+- ttf-noto-nerd
+- ttf-terminus-nerd
+- ufw 
+- unp
+- uv
+- vi
+- vim
 - virt-manager
-- virt-manager 
+- whois
+- wireless_tools
 - wireplumber 
-- xautolock 
+- wmenu
+- wofi
+- xclip
 - xdg-user-dirs 
-- xorg 
+- xdotool
+- xinit-xsession
+- xlayoutdisplay
+- xorg
 - xournalpp
-- xsel 
-- yay
+- xsel
 - yazi 
 - yt-dlp 
 - zathura 
-- zbar
+- zbar 
+- zellij 
+- zip 
 - zoxide 
 - zsh 
+- zsh-vi-mode
 
-### Install.sh
-- Wrapper for commands.sh
-- Installs packages / dwm / st-flexipatch / dmenu
-- Adds grayscale shader for picom to config folder
+### Script overview: 
+
+## install.sh
+- Wrapper for commands.sh, passes sudo + current user + auto flag to script
+
+## commands.sh
+- Simple UI for post-configuration
+- Installs patched dwm, st, and slstatus
+- Creates user directories
+- Hides /dotfiles to /.dotfiles
 - Sets default shell to zsh
-- Enables autologin on tty1
-- Enable tlp and cronie
+
+## /pkg/
+- Contains custom package groups for commands.sh
+
+## /config/
+- Contains configuration files for programs + custom shell programs
+- Picom grayscale filter + shadowless config
+- Enable tlp, greetd, and cronie (power saving, login manager, and timed task scheduler)
 - Downgrade bluez to oldest version for bluetooth controller support
-- Configures neovim w/ vim-plug
+- Neovim config
 - Configures yazi
-- Copies ```.xinitrc```, ```.zshrc```, ```.zprofile``` and ```.Xresources``` to home folder
-- Hides dotfiles folder ```~/.dotfiles```
+- Houses rc / profile files 
 
 ### TODO
-- Allow destructive installs (no backups)
-- Remove $HOME/code folder dependency
-- Add srcs as submodules
-- Disable log file flag
-- Program to convert aliases to binaries for dmenu
-- Move backups to .dotfiles folder automatically (and allow multiple)
-- Grab modified files from filesystem as opposed to having to edit the same file twice
+- Add log + auto flag
+- Finish menu UI
+- Make dotdeploy
+

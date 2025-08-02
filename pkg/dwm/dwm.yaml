@@ -1,0 +1,23 @@
+---
+builddir: ~/.dotfiles/dwm
+url: https://dwm.suckless.org/patches/
+patches:
+  xrdb:
+    patch: dwm-xrdb-6.4.diff
+    priority: 10
+  vanitygaps:
+    patch: dwm-cfacts-vanitygaps-6.4_combo.diff 
+    priority: 20
+  alpha:
+    patch: dwm-alpha-6.4.diff
+    priority: 30
+  customrefreshrate:
+    patch: dwm-customrefreshrate-6.5.diff
+    priority: 40
+  appicons:
+    patch: dwm-appicons-6.5.diff
+    priority: 50
+  swallow:
+    patch: dwm-swallow-6.3.diff
+    priority: 60
+

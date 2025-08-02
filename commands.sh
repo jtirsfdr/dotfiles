@@ -11,6 +11,8 @@ TODO
 #Hide dotfiles folder
 #Change shell
 #Warn of TODOS (Go + pipewire)
+#Drivers install
+#Suckless install
 
 #Create zsh aliases (separate from program)
 
@@ -75,6 +77,18 @@ Main Menu:
 			echo "invalid input"
 			;;
 	esac
+}
+
+copymenu() {
+	echo \
+"Select mode:
+1. Backup existing files, then copy
+2. Force replace existing files
+3. Skip if file exists
+Select files:
+" 
+#Show all files from folders
+
 }
 
 downgradebluez() {
@@ -178,8 +192,10 @@ enableservices() {
 	systemctl enable --now tlp
 	systemctl enable --now cronie
 	systemctl enable --now systemd-timesyncd
+	systemctl enable greetd
 	echo \
-"Make sure you enable pipewire-pulse manually.
+"greetd will start on reboot.
+Make sure you enable pipewire-pulse manually.
 > systemctl --user enable --now pipewire-pulse
 ---"
 }
@@ -207,6 +223,7 @@ installpkg(){
 
 	clear
 }
+
 createuserdirs(){
 	if [ -f "/usr/bin/xdg-user-dirs-update" ] ; then
 		xdg-user-dirs-update
@@ -217,6 +234,7 @@ createuserdirs(){
 		echo "---"
 	fi
 }
+
 installyay(){
 if [ -d "$PWD/yay" ] || [ -f "/usr/bin/yay" ]; then
 	echo "yay already installed"
@@ -269,16 +287,21 @@ $header
 }
 
 copyfile() {
-	# $1 = /home/.dotfiles/[srcdir]
-	# $2 = [destdir]
-	# $3 = [file]
+	# $1 = /home/user/dotfiles/[srcdir] # internal
+	# $2 = [destdir]                    # internal
+	# $3 = [file]                       # internal
+	# $4 = [mode]  VVV                  # internal
+	# 1 = dontreplace 2 = backupandreplace 3 = forcereplace
+	chown -R $user $(PWD)$1
 	if [ -f $2$3 ]; then
-		echo "[WARN]: $3 already exists, creating backup at $3~" >> log
-		sudo -u $user cp --backup $(pwd)/$1$3 $2$3
+		echo "$3 already exists, creating backup at $3~" 
+		echo "---"
+		sudo -u $user cp --backup $(PWD)/$1$3 $2/$3
 	else
 		sudo -u $user mkdir -p $2
-		sudo -u $user cp --backup $(pwd)/$1$3 $2$3
-		echo "[DONE]: $h/$user copied" >> log
+		sudo -u $user cp --backup $(PWD)/$1$3 $2/$3
+		echo "$h/$user copied" 
+		echo "---"
 	fi
 }
 
