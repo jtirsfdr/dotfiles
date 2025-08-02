@@ -87,10 +87,10 @@ copymenu() {
 3. Skip if file exists
 Select files:
 " 
-#Show all files from folders
+# Show all files recursively
+# I will do this tomorrow
 
 }
-
 downgradebluez() {
 	sudo downgrade bluez bluez-utils --oldest --ignore always -- --needed
 	clear
