@@ -62,7 +62,7 @@ Main Menu:
 			enableservices
 			;;
 		5)
-			copymenu
+			copymodemenu
 			;;
 		6)
 			togglevisibility
@@ -79,18 +79,61 @@ Main Menu:
 	esac
 }
 
-copymenu() {
-	echo \
-"Select mode:
+copymodemenu() {
+	read -p \
+'
+Select copy mode:
 1. Backup existing files, then copy
 2. Force replace existing files
 3. Skip if file exists
-Select files:
-" 
-# Show all files recursively
-# I will do this tomorrow
+4. Return to menu
+>  ' optsel
 
+	case $optsel in
+		1 | 2 | 3)
+			copyfilemenu "$optsel"
+			;;
+		4) 
+			return
+			;;
+		exit | quit | q)
+			exit
+			;;
+		*)
+			echo "Invalid input"
+			copymodemenu
+			;;
+	esac
 }
+
+copyfilemenu() {
+	clear
+	case $1 in #internal
+		1)
+			mode="Backup then copy"
+			;;
+		2)
+			mode="Force replace"
+			;;
+		3)
+			mode="Skip if existing"
+			;;
+	esac
+	rows=$(stty -a <"/dev/tty" | grep -Po '(?<=rows )\d+')
+	filecount=find -f "$PWD/copy" -type -f | wc -l
+	pages=$(((filecount/rows)+1))
+	printf '\nMode selected: %s\nPage: %s---\n' "$mode" "$echo"
+	#0 = return to copymodemenu
+	#1 = do all
+	#2-9a-zA-Z = files
+
+
+	read -p \
+'Dirs/Files would go here
+> ' fileselection
+	echo "$fileselection"
+}
+
 downgradebluez() {
 	sudo downgrade bluez bluez-utils --oldest --ignore always -- --needed
 	clear
@@ -257,8 +300,7 @@ viewpkg() {
 	header=$2 #internal
 	longestpkg=$(awk '{if (length > max) { max = length; longest = $0 } } END { print longest }' $filename)
 	maxlength=$((${#longestpkg} + 4)) # 4 accounts for delimiters and spaces
-	terminal=/dev/tty
-	columns=$(stty -a <"$terminal" | grep -Po '(?<=columns )\d+')
+	columns=$(stty -a <"/dev/tty" | grep -Po '(?<=columns )\d+')
 	entries=$(((columns-4)/maxlength))
 	pkgcount=$(wc -l < $filename)
 	frontbuffer=2
