@@ -105,7 +105,6 @@ Select copy mode:
 			;;
 	esac
 }
-
 copyfilemenu() {
 	clear
 	case $1 in #internal
@@ -120,18 +119,42 @@ copyfilemenu() {
 			;;
 	esac
 	rows=$(stty -a <"/dev/tty" | grep -Po '(?<=rows )\d+')
-	filecount=find -f "$PWD/copy" -type -f | wc -l
-	pages=$(((filecount/rows)+1))
-	printf '\nMode selected: %s\nPage: %s---\n' "$mode" "$echo"
-	#0 = return to copymodemenu
-	#1 = do all
-	#2-9a-zA-Z = files
+	filecount=$(find "$PWD/config" -type f | wc -l)
+	pagecount=$(((filecount/(rows/2))+1)) 		#half a page
+	selection="!"
+	page=1
+	while [ true ]
+	do 
+		case $selection in
+			"quit" | "q" | "exit")
+				exit
+				;;
+			"menu")
+				return
+				;;
+			*)
+				listcount=$((filecount/pagecount))
+				printf \
+'Page         : %s
+Mode selected: %s\n---\n' "$page" "$mode" 
+				printf \
+'0            : Select mode
+1-%s          : Select page
+a-zA-Z       : Copy file
+all          : Copy all files
+menu         : Return to menu
+---\n'	"$pagecount"
 
+				find "$PWD/config" -type f \
+				| tail -n +$((1 + (i * listcount))) | head -n $(((i+1)*listcount))
 
-	read -p \
-'Dirs/Files would go here
-> ' fileselection
-	echo "$fileselection"
+				read -p \
+'
+> ' selection
+				;;
+			esac
+	done
+	exit
 }
 
 downgradebluez() {
